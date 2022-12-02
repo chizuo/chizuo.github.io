@@ -86,7 +86,6 @@ let db_resources = [
       {skillName: 'UML', skillLevel: 9}
     ], // arrray of skills id
     payRate: 100,
-    updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-736733",
@@ -108,7 +107,6 @@ let db_resources = [
       {skillName: 'SRD', skillLevel: 6}
     ], // arrray of skills id
     payRate: 65,
-    updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-732289",
@@ -128,7 +126,6 @@ let db_resources = [
       {skillName: 'SRD', skillLevel: 9}
     ], // arrray of skills id
     payRate: 89,
-    updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-736778",
@@ -148,7 +145,6 @@ let db_resources = [
       {skillName: 'UML', skillLevel: 9}
     ], // arrray of skills id
     payRate: 76,
-    updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-709789",
@@ -168,7 +164,6 @@ let db_resources = [
       {skillName: 'ERD', skillLevel: 4}
     ], // arrray of skills id
     payRate: 68,
-    updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-736589",
@@ -189,7 +184,6 @@ let db_resources = [
       {skillName: 'SRD', skillLevel: 9}
     ], // arrray of skills id
     payRate: 125,
-    updateDate: new Date(2022, 7, 30),
   },
 ];
 
