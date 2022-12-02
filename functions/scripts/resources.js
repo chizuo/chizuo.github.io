@@ -8,7 +8,7 @@ const db_sortOptions = [
   
 const db_filterOptions = ["resource, status"];
   
-function newActionItem() {
+function newResource() {
   $("#appBody").replaceWith(`
         <div id="appBody" class="container">
             <form>
@@ -63,7 +63,7 @@ function newActionItem() {
   });
 }
 
-function loadActionItems() {
+function loadResource() {
   $("#appBody").replaceWith(`
         <div id="appBody" class="container">
             <form>
@@ -180,7 +180,7 @@ function openResource() {
   });
   $("#add-status-button").on("click", function () {
     alert("Loading status request form");
-    newActionItem();
+    newResource();
   });
 }
 
@@ -280,11 +280,11 @@ function tabularView() {
 
 function init() {
   loadActionItems();
-  $("#new-action-item-button").on("click", newActionItem);
-  $("#open-action-item-button").on("click", loadActionItems);
+  $("#new-action-item-button").on("click", newResource);
+  $("#open-action-item-button").on("click", loadResource);
   $("#tab-action-item-button").on("click", tabularView);
-  $("#open").on("click", loadActionItems);
-  $("#new").on("click", newActionItem);
+  $("#open").on("click", loadResource);
+  $("#new").on("click", newResource);
   $("#tab").on("click", tabularView);
 }
 
