@@ -73,8 +73,18 @@ let db_resources = [
     uid: "R-736789",
     name: "Jonathan Chua",
     title: "Project Manager",
-    availabilityCalender: [], // array of dates
-    skills: [], // arrray of skills id
+    availabilityCalender: [
+      // {date: newDate(2022, 12, 24), reason: 'vacation'},
+      // {date: newDate(2022, 12, 25), reason: 'holiday'},
+      // {date: newDate(2022, 11, 27), reason: 'holiday'},
+      // {date: newDate(2023, 01, 01), reason: 'holiday'},
+    ], // array of dates
+    skills: [
+      {skillName: 'Java', skillLevel: 10}, 
+      {skillName: 'JavaScript', skillLevel: 8}, 
+      {skillName: 'ERD', skillLevel: 8},
+      {skillName: 'UML', skillLevel: 9}
+    ], // arrray of skills id
     payRate: 100,
     updateDate: new Date(2022, 7, 30),
   },
@@ -82,45 +92,103 @@ let db_resources = [
     uid: "R-736733",
     name: "Parth Savaj",
     title: "Software Engineer",
-    availabilityCalender: [], // array of dates
-    skills: [], // arrray of skills id
-    payRate: 100,
+    availabilityCalender: [
+      // {date: newDate(2022, 12, 24), reason: 'vacation'},
+      // {date: newDate(2022, 12, 25), reason: 'holiday'},
+      // {date: newDate(2022, 12, 31), reason: 'vacation'},
+      // {date: newDate(2022, 11, 27), reason: 'holiday'},
+      // {date: newDate(2023, 01, 01), reason: 'holiday'},
+      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
+    ], // array of dates
+    skills: [
+      {skillName: 'Java', skillLevel: 8}, 
+      {skillName: 'JavaScript', skillLevel: 8}, 
+      {skillName: 'ERD', skillLevel: 7},
+      {skillName: 'UML', skillLevel: 9},
+      {skillName: 'SRD', skillLevel: 6}
+    ], // arrray of skills id
+    payRate: 65,
     updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-732289",
     name: "Alondra Gonzalez",
     title: "Software Designer",
-    availabilityCalender: [], // array of dates
-    skills: [], // arrray of skills id
-    payRate: 100,
+    availabilityCalender: [
+      // {date: newDate(2022, 12, 24), reason: 'vacation'},
+      // {date: newDate(2022, 12, 25), reason: 'holiday'},
+      // {date: newDate(2022, 12, 31), reason: 'vacation'},
+      // {date: newDate(2022, 11, 27), reason: 'holiday'},
+      // {date: newDate(2023, 01, 01), reason: 'holiday'},
+      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
+    ], // array of dates
+    skills: [
+      {skillName: 'Java', skillLevel: 9}, 
+      {skillName: 'ERD', skillLevel: 8},
+      {skillName: 'SRD', skillLevel: 9}
+    ], // arrray of skills id
+    payRate: 89,
     updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-736778",
     name: "Jeel Patel",
-    title: "Sftware Tester",
-    availabilityCalender: [], // array of dates
-    skills: [], // arrray of skills id
-    payRate: 100,
+    title: "Software Tester",
+    availabilityCalender: [
+      // {date: newDate(2022, 12, 24), reason: 'vacation'},
+      // {date: newDate(2022, 12, 25), reason: 'holiday'},
+      // {date: newDate(2022, 12, 31), reason: 'vacation'},
+      // {date: newDate(2022, 11, 27), reason: 'holiday'},
+      // {date: newDate(2023, 01, 01), reason: 'holiday'},
+      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
+    ], // array of dates
+    skills: [
+      {skillName: 'Java', skillLevel: 9}, 
+      {skillName: 'ERD', skillLevel: 8},
+      {skillName: 'UML', skillLevel: 9}
+    ], // arrray of skills id
+    payRate: 76,
     updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-709789",
     name: "Sari Ajina",
     title: "Software Developer",
-    availabilityCalender: [], // array of dates
-    skills: [], // arrray of skills id
-    payRate: 100,
+    availabilityCalender: [
+      // {date: newDate(2022, 12, 24), reason: 'vacation'},
+      // {date: newDate(2022, 12, 25), reason: 'holiday'},
+      // {date: newDate(2022, 12, 31), reason: 'vacation'},
+      // {date: newDate(2022, 11, 27), reason: 'holiday'},
+      // {date: newDate(2023, 01, 01), reason: 'holiday'},
+      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
+    ], // array of dates
+    skills: [
+      {skillName: 'Java', skillLevel: 10}, 
+      {skillName: 'UML', skillLevel: 6}, 
+      {skillName: 'ERD', skillLevel: 4}
+    ], // arrray of skills id
+    payRate: 68,
     updateDate: new Date(2022, 7, 30),
   },
   {
     uid: "R-736589",
     name: "Mrunal Prakash Gavali",
     title: "Software Designer",
-    availabilityCalender: [], // array of dates
-    skills: [], // arrray of skills id
-    payRate: 100,
+    availabilityCalender: [
+      // {date: newDate(2022, 12, 24), reason: 'vacation'},
+      // {date: newDate(2022, 12, 25), reason: 'holiday'},
+      // {date: newDate(2022, 12, 31), reason: 'vacation'},
+      // {date: newDate(2022, 11, 27), reason: 'holiday'},
+      // {date: newDate(2023, 01, 01), reason: 'holiday'},
+      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
+    ], // array of dates
+    skills: [
+      {skillName: 'Python', skillLevel: 10}, 
+      {skillName: 'Java', skillLevel: 8}, 
+      {skillName: 'ERD', skillLevel: 8},
+      {skillName: 'SRD', skillLevel: 9}
+    ], // arrray of skills id
+    payRate: 125,
     updateDate: new Date(2022, 7, 30),
   },
 ];
