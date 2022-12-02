@@ -14,7 +14,7 @@ function newActionItem() {
             <form>
                 <div class="form-group">
                     <label for="uid">Unique I.D.</label>
-                    <input id="uid" class="form-control" type="text" placeholder="R-${
+                    <input id="uid" class="form-control" type="text" placeholder="D-${
                       Math.floor(Math.random() * 9999998) + 1000000
                     }" readonly>
                 </div>
@@ -23,15 +23,23 @@ function newActionItem() {
                     <input type="text" class="form-control" id="name">
                 </div>
                 <div class="form-group">
-                    <label for="description">Title</label>
+                    <label for="description">Description</label>
                     <input class="form-control" id="description" ></input>
                 </div>
                 <div class="form-group">
-                    <label for="date-created">Pay Rate</label>
+                    <label for="description">Priority</label>
+                    <input class="form-control" id="description" ></input>
+                </div>
+                <div class="form-group">
+                    <label for="date-created">Impact</label>
                     <input id="date-created" class="form-control" type="text" >
                 </div>
                 <div class="form-group">
-                    <label for="date-assigned">Availability Calendar</label>
+                    <label for="date-assigned">Date Needed</label>
+                    <input id="date-assigned" class="form-control" type="date">
+                </div>
+                <div class="form-group">
+                    <label for="date-assigned">Date Made</label>
                     <input id="date-assigned" class="form-control" type="date">
                 </div>
                 <div class="form-group">
