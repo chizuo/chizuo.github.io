@@ -112,7 +112,7 @@ function formatDate(date, month, year) {
 
 function openResource() {
   let index = document.getElementById("action-items").value;
-  let { uid, name, title, availabilityCalender, skills, payRate, updateDate } = db_resources[index];
+  let { uid, name, title, availabilityCalender, skills, payRate } = db_resources[index];
   $("#appBody").replaceWith(`
     <div id="appBody" class="container">
         <form>
@@ -137,9 +137,9 @@ function openResource() {
                 <input id="date-assigned" class="form-control" type="date" value="${"skills[0].name"}">
             </div>
             <div class="form-group">
-                <label for="resource">List of Skills</label>
-                <select class="form-control" id="resource">
-                    <option>${JSON.stringify(skills)}</option>
+                <label for="skills">List of Skills</label>
+                <select class="form-control" id="skills">
+                    <option></option>
                 </select>
             </div>
             <input class="btn btn-primary" type="submit" value="Save" id="save-button">
@@ -148,8 +148,9 @@ function openResource() {
     </div> 
     `);
 
-  for (let i = 0; i < db_status.length; i++) {
-    $("#status").append(`<option value=${i}>${db_status[i]}</option>`);
+  for (let i = 0; i < skills.length; i++) {
+    let { skillName, skillLevel } = skills[i];
+    $("#skills").append(`<option value=${i}>${skillName} : ${skillLevel}</option>`);
   }
 
   //   for (let i = 0; i < db_status.length; i++) {
@@ -226,22 +227,29 @@ function tabularView() {
     `);
 
   for (let i = 0; i < db_resources.length; i++) {
-    var {
+    const {
       uid,
       name, 
       title,
       payRate,
       availabilityCalender,
       skills
-    } = db_resources[index];
-    var row = `
+    } = db_resources[i];
+
+    let skillList = [];
+    for(let j = 0; j < skills.length; j++) {
+      const { skillName, skillLevel } = skills[j];
+      skillList.push(` ${skillName} : ${skillLevel}`);
+    }
+
+    let row = `
         <tr>
             <th>${uid}</th>
             <td>${name}</td>
             <td>${title}</td>
             <td>${payRate}</td>
             <td>${availabilityCalender}</td>
-            <td id="skill">${JSON.stringify(skills)}</td>
+            <td id="skill">${skillList}</td>
         </tr>`;
     $("tbody").append(row);
   }
@@ -279,7 +287,7 @@ function tabularView() {
 }
 
 function init() {
-  loadActionItems();
+  loadResource();
   $("#new-action-item-button").on("click", newResource);
   $("#open-action-item-button").on("click", loadResource);
   $("#tab-action-item-button").on("click", tabularView);
