@@ -249,7 +249,7 @@ function tabularView() {
             <td>${title}</td>
             <td>${payRate}</td>
             <td>${availabilityCalender}</td>
-            <td id="skill">${skillList}</td>
+            <td>${skillList}</td>
         </tr>`;
     $("tbody").append(row);
   }
