@@ -28,11 +28,15 @@ function newActionItem() {
                 </div>
                 <div class="form-group">
                     <label for="description">Priority</label>
-                    <input class="form-control" id="description" ></input>
+                    <select class="form-control" id="resource">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="date-created">Impact</label>
-                    <input id="date-created" class="form-control" type="text" >
+                    <label for="description">Impact</label>
+                    <select class="form-control" id="resource">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="date-assigned">Date Needed</label>

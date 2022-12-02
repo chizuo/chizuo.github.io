@@ -442,13 +442,17 @@ const db_status = [
   },
 ];
 
+db_priorityList = ["High", "Medium", "Low"];
+
+db_impactList = ["Critical", "High", "Medium", "Low", "Minor"];
+
 const db_decision = [
   {
     uid: "D-736789",
     decisionName: "Decision 1",
     decisionDescription: "This is the first decision",
-    priorityId: "Hard",
-    impactId: "Critical",
+    priority: "Hard",
+    impact: "Critical",
     dateCreated: new Date(2022, 7, 30),
     dateNeeded: new Date(2022, 7, 30),
     dateMade: new Date(2022, 7, 30),
@@ -463,8 +467,8 @@ const db_decision = [
     uid: "D-736733",
     decisionName: "Decision 2",
     decisionDescription: "This is the second decision",
-    priorityId: "Medium",
-    impactId: "Low",
+    priority: "Medium",
+    impact: "Low",
     dateCreated: new Date(2022, 7, 30),
     dateNeeded: new Date(2022, 7, 30),
     dateMade: new Date(2022, 7, 30),
@@ -479,8 +483,8 @@ const db_decision = [
     uid: "D-732289",
     decisionName: "Decision 3",
     decisionDescription: "This is the third decision",
-    priorityId: "Low",
-    impactId: "Minor",
+    priority: "Low",
+    impact: "Minor",
     dateCreated: new Date(2022, 7, 30),
     dateNeeded: new Date(2022, 7, 30),
     dateMade: new Date(2022, 7, 30),
