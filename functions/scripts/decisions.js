@@ -131,8 +131,8 @@ $("#appBody").replaceWith(`
       <div id="appBody" class="container">
           <form>
               <div class="form-group">
-                  <label for="action-items">Resources</label>
-                  <select class="form-control" id="action-items">
+                  <label for="decisions">Decisions</label>
+                  <select class="form-control" id="decisions">
                       <option></option>
                   </select>
               </div>
@@ -141,10 +141,10 @@ $("#appBody").replaceWith(`
       </div> 
   `);
 
-for (let i = 0; i < db_resources.length; i++) {
-  let { uid, name } = db_resources[i];
-  $("#action-items").append(`<option value=${i}>${uid} : ${name}</option>`);
-}
+  for (let i = 0; i < db_decision.length; i++) {
+    let { uid, name } = db_decision[i];
+    $("#decisions").append(`<option value=${i}>${uid} : ${name}</option>`);
+  }
 }
 
 function sortAsc(data) {
@@ -174,8 +174,12 @@ return `${year}-${Month}-${Date}`;
 }
 
 function openResource() {
-let index = document.getElementById("action-items").value;
-let { uid, name, title, availabilityCalender, skills, payRate, updateDate } = db_resources[index];
+let index = document.getElementById("decisions").value;
+let { 
+  uid, name, description, priority, impact, dateNeeded, dateMade, 
+  resource, expectedCompletionDate, actualCompletionDate, status, statusDescription, 
+  listOfRefNotes, updateDate
+  } = db_resources[index];
 $("#appBody").replaceWith(`
   <div id="appBody" class="container">
       <form>
@@ -219,32 +223,32 @@ for (let i = 0; i < db_status.length; i++) {
 //     $("#resource").append(`<option value=${i}>${db_resources[i]}</option>`);
 //   }
 
-$("#name").val(name);
-$("#description").val(description);
-$("#resource").val(resource);
-$("#status").val(status);
-$("#status-description").val(statusDescription);
-$("#status-description").change(function () {
-  $("#update-date").replaceWith(
-    `<input id="update-date" class="form-control" type="text" placeholder="${new Date().toLocaleDateString()}" readonly>`
-  );
-});
-$("#save-button").on("click", function () {
-  alert(`${uid} : ${name} has been updated.`);
-  location.reload();
-});
-$("#delete-button").on("click", function () {
-  if (confirm(`Confirm deletion of ${uid} : ${name}`) === true) {
-    alert(`${uid} : ${name} has been deleted`);
+  $("#name").val(name);
+  $("#description").val(description);
+  $("#resource").val(resource);
+  $("#status").val(status);
+  $("#status-description").val(statusDescription);
+  $("#status-description").change(function () {
+    $("#update-date").replaceWith(
+      `<input id="update-date" class="form-control" type="text" placeholder="${new Date().toLocaleDateString()}" readonly>`
+    );
+  });
+  $("#save-button").on("click", function () {
+    alert(`${uid} : ${name} has been updated.`);
     location.reload();
-  } else {
-    alert(`Delete request of ${uid} : ${name} been cancelled`);
-  }
-});
-$("#add-status-button").on("click", function () {
-  alert("Loading status request form");
-  newActionItem();
-});
+  });
+  $("#delete-button").on("click", function () {
+    if (confirm(`Confirm deletion of ${uid} : ${name}`) === true) {
+      alert(`${uid} : ${name} has been deleted`);
+      location.reload();
+    } else {
+      alert(`Delete request of ${uid} : ${name} been cancelled`);
+    }
+  });
+  $("#add-status-button").on("click", function () {
+    alert("Loading status request form");
+    newActionItem();
+  });
 }
 
 function tabularView() {
