@@ -443,7 +443,7 @@ const db_status = [
 ];
 
 db_priorityList = ["High", "Medium", "Low"];
-
+db_statusDecision = ["Open","Closed","In Progress","Hold","Complete"];
 db_impactList = ["Critical", "High", "Medium", "Low", "Minor"];
 
 const db_decision = [
