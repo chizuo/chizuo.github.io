@@ -23,8 +23,8 @@ $("#appBody").replaceWith(`
                   <input type="text" class="form-control" id="name">
               </div>
               <div class="form-group">
-                  <label for="description">Description</label>
-                  <input class="form-control" id="description" ></input>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Decision."></textarea>
               </div>
               <div class="form-group">
                   <label for="priority">Priority</label>
@@ -148,38 +148,38 @@ $("#appBody").replaceWith(`
 }
 
 function sortAsc(data) {
-alert(`table contents are now sorted by ${data} in ascending order`);
-tabularView();
+  alert(`table contents are now sorted by ${data} in ascending order`);
+  tabularView();
 }
 
 function sortDesc(data) {
-alert(`table contents are now sorted by ${data} in descending order`);
-tabularView();
+  alert(`table contents are now sorted by ${data} in descending order`);
+  tabularView();
 }
 
 function filterStatus(data) {
-alert(`table contents are now filtered by status=${data}`);
-tabularView();
+  alert(`table contents are now filtered by status=${data}`);
+  tabularView();
 }
 
 function filterResource(data) {
-alert(`table contents are now filtered by resource=${data}`);
-tabularView();
+  alert(`table contents are now filtered by resource=${data}`);
+  tabularView();
 }
 
 function formatDate(date, month, year) {
-let Month = parseInt(month) < 10 ? `0${month}` : month;
-let Date = parseInt(date) < 10 ? `0${date}` : date;
-return `${year}-${Month}-${Date}`;
+  let Month = parseInt(month) < 10 ? `0${month}` : month;
+  let Date = parseInt(date) < 10 ? `0${date}` : date;
+  return `${year}-${Month}-${Date}`;
 }
 
 function openResource() {
 let index = document.getElementById("decisions").value;
 let { 
   uid, name, description, priority, impact, dateNeeded, dateMade, 
-  resource, expectedCompletionDate, actualCompletionDate, status, statusDescription, 
-  listOfRefNotes, updateDate
-  } = db_resources[index];
+  resource, expectedCompletionDate, actualCompletionDate, status, 
+  statusDescription, listOfRefNotes, updateDate
+  } = db_decision[index];
 $("#appBody").replaceWith(`
   <div id="appBody" class="container">
       <form>
