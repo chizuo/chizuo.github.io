@@ -177,7 +177,7 @@ function openDecision() {
 let index = document.getElementById("decisions").value;
 let { 
   uid, name, description, priority, impact, dateNeeded, dateMade, 
-  resource, expectedCompletionDate, actualCompletionDate, status, 
+  dateCreated, resource, expectedCompletionDate, actualCompletionDate, statusId, 
   listofMeetingNotes, statusDescription, listOfRefNotes, updateDate
 } = db_decision[index];
 $("#appBody").replaceWith(`
@@ -204,12 +204,16 @@ $("#appBody").replaceWith(`
               <input type="text" class="form-control" placeholder="${impact}" readonly>
           </div>
           <div class="form-group">
+              <label for="date-needed">Date Created</label>
+              <input id="date-needed" class="form-control" type="text" placeholder="${dateCreated}" readonly>
+          </div>
+          <div class="form-group">
               <label for="date-needed">Date Needed</label>
-              <input id="date-needed" class="form-control" type="date" placeholder="${dateNeeded}">
+              <input id="date-needed" class="form-control" type="text" placeholder="${dateNeeded}">
           </div>
           <div class="form-group">
               <label for="date-made">Date Made</label>
-              <input id="date-made" class="form-control" type="date" placeholder="${dateMade}">
+              <input id="date-made" class="form-control" type="text" placeholder="${dateMade}" readonly>
           </div>
           <div class="form-group">
                 <label for="decision-maker">Decision Maker</label>
@@ -217,11 +221,11 @@ $("#appBody").replaceWith(`
           </div>
           <div class="form-group">
               <label for="expected-completion-date">Expected Completion Date</label>
-              <input id="expected-completion-date" class="form-control" type="date" placeholder="${expectedCompletionDate}">
+              <input id="expected-completion-date" class="form-control" type="text" placeholder="${expectedCompletionDate}">
           </div>
           <div class="form-group">
               <label for="actual-completion-date">Actual Completion Date</label>
-              <input id="actual-completion-date" class="form-control" type="date" placeholder="${actualCompletionDate}">
+              <input id="actual-completion-date" class="form-control" type="text" placeholder="${actualCompletionDate}">
           </div>
           <div class="form-group">
               <label for="list-of-meeting-notes">List of Meeting Notes</label>
@@ -229,15 +233,15 @@ $("#appBody").replaceWith(`
           </div>
           <div class="form-group">
               <label for="note-date">Note Date</label>
-              <input id="note-date" class="form-control" type="date" placeholder="${dateMade}">
+              <input id="note-date" class="form-control" type="text" placeholder="${dateMade}">
           </div>
           <div class="form-group">
               <label for="date-created">Date Created</label>
-              <input id="note-date" class="form-control" type="date" placeholder="${dateMade}">
+              <input id="note-date" class="form-control" type="text" placeholder="${dateMade}">
           </div>
           <div class="form-group">
                 <label for="status">Status</label>
-                <input id="status" class="form-control" type="text" placeholder="${db_statusDecision}" readonly>
+                <input id="status" class="form-control" type="text" placeholder="${statusId}" readonly>
           </div>
           <div class="form-group">
                 <label for="status-description">Status Description</label>
