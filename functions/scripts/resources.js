@@ -14,7 +14,7 @@ function newResource() {
             <form>
                 <div class="form-group">
                     <label for="uid">Unique I.D.</label>
-                    <input id="uid" class="form-control" type="text" placeholder="R-${
+                    <input id="uid" class="form-control" type="text" placeholder="RES-${
                       Math.floor(Math.random() * 9999998) + 1000000
                     }" readonly>
                 </div>

@@ -57,7 +57,7 @@ let db_availibilityCalendar = [
 
 let db_resources = [
   {
-    uid: "R-736789",
+    uid: "RES-736789",
     name: "Jonathan Chua",
     title: "Project Manager",
     availabilityCalender: "./scripts/calendar/jonathan.png",
@@ -70,7 +70,7 @@ let db_resources = [
     payRate: 100,
   },
   {
-    uid: "R-736733",
+    uid: "RES-736733",
     name: "Parth Savaj",
     title: "Software Engineer",
     availabilityCalender: "./scripts/calendar/parth.png",
@@ -84,7 +84,7 @@ let db_resources = [
     payRate: 65,
   },
   {
-    uid: "R-732289",
+    uid: "RES-732289",
     name: "Alondra Gonzalez",
     title: "Software Designer",
     availabilityCalender: "./scripts/calendar/alonda.png",
@@ -96,7 +96,7 @@ let db_resources = [
     payRate: 89,
   },
   {
-    uid: "R-736778",
+    uid: "RES-736778",
     name: "Jeel Patel",
     title: "Software Tester",
     availabilityCalender: "./scripts/calendar/jeel.png",
@@ -108,7 +108,7 @@ let db_resources = [
     payRate: 76,
   },
   {
-    uid: "R-709789",
+    uid: "RES-709789",
     name: "Sari Ajina",
     title: "Software Developer",
     availabilityCalender: "./scripts/calendar/sari.png",
@@ -120,7 +120,7 @@ let db_resources = [
     payRate: 68,
   },
   {
-    uid: "R-736589",
+    uid: "RES-736589",
     name: "Mrunal Prakash Gavali",
     title: "Software Designer",
     availabilityCalender: "./scripts/calendar/mrunal.png",
