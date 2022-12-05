@@ -222,10 +222,18 @@ function tabularView() {
                 <tr>
                     <th scope="col">uid</th>
                     <th scope="col">name</th>
-                    <th scope="col">title</th>
-                    <th scope="col">pay rate</th>
-                    <th scope="col">availability calendar</th>
-                    <th scope="col">skills</th>
+                    <th scope="col">description</th>
+                    <th scope="col">priority</th>
+                    <th scope="col">everity</th>
+                    <th scope="col">raised</th>
+                    <th scope="col">assigned</th>
+                    <th scope="col">expected completion</th>
+                    <th scope="col">actual completion</th>
+                    <th scope="col">status</th>
+                    <th scope="col">status description</th>
+                    <th scope="col">last updated</th>
+                    <th scope="col">action item</th>
+                    <th scope="col">decision</th>
                 </tr>
             </thead>
             <tbody></tbody>

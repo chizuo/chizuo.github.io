@@ -371,6 +371,24 @@ var db_actionItems = [
   },
 ];
 
+const db_predecessor_successorTasks = [
+  {
+    uid: "PST-736789",
+    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
+    successorTaskId: ["T-736789", "T-736733", "T-736733"],
+  },
+  {
+    uid: "PST-736733",
+    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
+    successorTaskId: ["T-736789", "T-736733", "T-736733"],
+  },
+  {
+    uid: "PST-732289",
+    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
+    successorTaskId: ["T-736789", "T-736733", "T-736733"],
+  },
+];
+
 const db_status = [
   {
     uid: 1,
@@ -389,8 +407,8 @@ const db_status = [
 const db_decision = [
   {
     uid: "D-736789",
-    decisionName: "Decision 1",
-    decisionDescription: "This is the first decision",
+    name: "Decision 1",
+    description: "This is the first decision",
     priorityId: ["P-736789", "P-736733", "P-736733"],
     impactId: ["I-736789", "I-736733", "I-736733"],
     dateCreated: new Date(2022, 7, 30),
@@ -405,8 +423,8 @@ const db_decision = [
   },
   {
     uid: "D-736733",
-    decisionName: "Decision 2",
-    decisionDescription: "This is the second decision",
+    name: "Decision 2",
+    description: "This is the second decision",
     priorityId: ["P-736789", "P-736733", "P-736733"],
     impactId: ["I-736789", "I-736733", "I-736733"],
     dateCreated: new Date(2022, 7, 30),
@@ -421,8 +439,8 @@ const db_decision = [
   },
   {
     uid: "D-732289",
-    decisionName: "Decision 3",
-    decisionDescription: "This is the third decision",
+    name: "Decision 3",
+    description: "This is the third decision",
     priorityId: ["P-736789", "P-736733", "P-736733"],
     impactId: ["I-736789", "I-736733", "I-736733"],
     dateCreated: new Date(2022, 7, 30),
@@ -513,66 +531,59 @@ const db_severity = [
   },
 ];
 
+/********** Issues **********/
 const db_issues = [
   {
     uid: "I-736789",
-    issueName: "Issue 1",
-    issueDescription: "This is the first issue",
-    priorityId: ["P-736789", "P-736733", "P-736733"],
-    severityId: ["S-736789", "S-736733", "S-736733"],
-    dateRaised: new Date(2022, 7, 30),
-    dateAssigned: new Date(2022, 7, 30),
-    expectedCompletionDate: new Date(2022, 7, 30),
-    actualCompletionDate: new Date(2022, 7, 30),
-    statusId: [1, 2, 3],
-    statusDescription: "This is the status description",
-    updateDate: new Date(2022, 7, 30),
+    name: "Issue 1",
+    description: "This is the first issue",
+    priority: 2,
+    severity: 1,
+    dateRaised: new Date(2022, 6, 28),
+    dateAssigned: new Date(2022, 8, 15),
+    expectedCompletionDate: new Date(2023, 1, 22),
+    actualCompletionDate: null,
+    status: 3,
+    statusDescription: "This is the status description for the first issue",
+    updateDate: new Date(2022, 8, 22),
+    actionItem: 1,
+    decision: 2
   },
   {
     uid: "I-736733",
-    issueName: "Issue 2",
-    issueDescription: "This is the second issue",
-    priorityId: ["P-736789", "P-736733", "P-736733"],
-    severityId: ["S-736789", "S-736733", "S-736733"],
-    dateRaised: new Date(2022, 7, 30),
-    dateAssigned: new Date(2022, 7, 30),
-    expectedCompletionDate: new Date(2022, 7, 30),
-    actualCompletionDate: new Date(2022, 7, 30),
-    statusId: [1, 2, 3],
-    statusDescription: "This is the status description",
-    updateDate: new Date(2022, 7, 30),
+    name: "Issue 2",
+    description: "This is the second issue",
+    priority: 1,
+    severity: 4,
+    dateRaised: new Date(2022, 6, 20),
+    dateAssigned: new Date(2022, 8, 10),
+    expectedCompletionDate: new Date(2022, 11, 15),
+    actualCompletionDate: new Date(2022, 11, 26),
+    status: 2,
+    statusDescription: "This is the status description for the second issue",
+    updateDate: new Date(2022, 8, 30),
+    actionItem: 2,
+    decision: 1
   },
   {
     uid: "I-732289",
-    issueName: "Issue 3",
-    issueDescription: "This is the third issue",
-
-    priorityId: ["P-736789", "P-736733", "P-736733"],
-    severityId: ["S-736789", "S-736733", "S-736733"],
-    dateRaised: new Date(2022, 7, 30),
+    name: "Issue 3",
+    description: "This is the third issue",
+    priority: 3,
+    severity: 5,
+    dateRaised: new Date(2022, 6, 26),
     dateAssigned: new Date(2022, 7, 30),
-    expectedCompletionDate: new Date(2022, 7, 30),
-    actualCompletionDate: new Date(2022, 7, 30),
-    statusId: [1, 2, 3],
-    statusDescription: "This is the status description",
-    updateDate: new Date(2022, 7, 30),
+    expectedCompletionDate: new Date(2022, 11, 29),
+    actualCompletionDate: null,
+    status: 1,
+    statusDescription: "This is the status description for the third issue",
+    updateDate: new Date(2022, 9, 2),
+    actionItem: 3,
+    decision: 2
   },
 ];
-
-const db_predecessor_successorTasks = [
-  {
-    uid: "PST-736789",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-  {
-    uid: "PST-736733",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-  {
-    uid: "PST-732289",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-];
+const db_issues_status = ["","Open","Closed","In Progress","Hold","Complete"];
+const db_issues_severity = ["","Critical","High","Medium","Low","Minor"];
+const db_issues_priority = ["","High","Medium","Low"];
+const db_issues_sort= ["","name","date raised","date assigned","expected completion date","actual completion date","update date"];
+const db_issues_filter = ["", "date raised", "date assigned", "update date", "actual completion date", "expected completion date", "past due", "specified days until expected completion"];

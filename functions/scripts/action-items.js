@@ -56,7 +56,7 @@ var db_actionItems = [
 const db_status = ["","Open","Closed","In Progress","Hold","Complete"];
 const db_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
 const db_sortOptions = ["name", "date created", "date assigned","expected completion date","actual completion date","update date"];
-const db_filterOptions = ["resource, status"];
+const db_filterOptions = ["resource", "status", "date created", "date assigned", "update date","actual completion date", "expected completion date", "past due", "specified days until expected completion"];
 
 function newActionItem() {
     $("#appBody").replaceWith(`
