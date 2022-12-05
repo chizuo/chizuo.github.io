@@ -55,30 +55,12 @@ let db_availibilityCalendar = [
   },
 ];
 
-/* Model db_resource
-
-{
-    uid,
-    name,
-    title,
-    availabilityCalender,
-    skills,
-    payRate,
-    updateDate
-  }
-*/
-
 let db_resources = [
   {
     uid: "R-736789",
     name: "Jonathan Chua",
     title: "Project Manager",
-    availabilityCalender: [
-      // {date: newDate(2022, 12, 24), reason: 'vacation'},
-      // {date: newDate(2022, 12, 25), reason: 'holiday'},
-      // {date: newDate(2022, 11, 27), reason: 'holiday'},
-      // {date: newDate(2023, 01, 01), reason: 'holiday'},
-    ], // array of dates
+    availabilityCalender: "./scripts/calendar/jonathan.png",
     skills: [
       {skillName: 'Java', skillLevel: 10}, 
       {skillName: 'JavaScript', skillLevel: 8}, 
@@ -91,14 +73,7 @@ let db_resources = [
     uid: "R-736733",
     name: "Parth Savaj",
     title: "Software Engineer",
-    availabilityCalender: [
-      // {date: newDate(2022, 12, 24), reason: 'vacation'},
-      // {date: newDate(2022, 12, 25), reason: 'holiday'},
-      // {date: newDate(2022, 12, 31), reason: 'vacation'},
-      // {date: newDate(2022, 11, 27), reason: 'holiday'},
-      // {date: newDate(2023, 01, 01), reason: 'holiday'},
-      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
-    ], // array of dates
+    availabilityCalender: "./scripts/calendar/parth.png",
     skills: [
       {skillName: 'Java', skillLevel: 8}, 
       {skillName: 'JavaScript', skillLevel: 8}, 
@@ -112,14 +87,7 @@ let db_resources = [
     uid: "R-732289",
     name: "Alondra Gonzalez",
     title: "Software Designer",
-    availabilityCalender: [
-      // {date: newDate(2022, 12, 24), reason: 'vacation'},
-      // {date: newDate(2022, 12, 25), reason: 'holiday'},
-      // {date: newDate(2022, 12, 31), reason: 'vacation'},
-      // {date: newDate(2022, 11, 27), reason: 'holiday'},
-      // {date: newDate(2023, 01, 01), reason: 'holiday'},
-      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
-    ], // array of dates
+    availabilityCalender: "./scripts/calendar/alonda.png",
     skills: [
       {skillName: 'Java', skillLevel: 9}, 
       {skillName: 'ERD', skillLevel: 8},
@@ -131,14 +99,7 @@ let db_resources = [
     uid: "R-736778",
     name: "Jeel Patel",
     title: "Software Tester",
-    availabilityCalender: [
-      // {date: newDate(2022, 12, 24), reason: 'vacation'},
-      // {date: newDate(2022, 12, 25), reason: 'holiday'},
-      // {date: newDate(2022, 12, 31), reason: 'vacation'},
-      // {date: newDate(2022, 11, 27), reason: 'holiday'},
-      // {date: newDate(2023, 01, 01), reason: 'holiday'},
-      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
-    ], // array of dates
+    availabilityCalender: "./scripts/calendar/jeel.png",
     skills: [
       {skillName: 'Java', skillLevel: 9}, 
       {skillName: 'ERD', skillLevel: 8},
@@ -150,14 +111,7 @@ let db_resources = [
     uid: "R-709789",
     name: "Sari Ajina",
     title: "Software Developer",
-    availabilityCalender: [
-      // {date: newDate(2022, 12, 24), reason: 'vacation'},
-      // {date: newDate(2022, 12, 25), reason: 'holiday'},
-      // {date: newDate(2022, 12, 31), reason: 'vacation'},
-      // {date: newDate(2022, 11, 27), reason: 'holiday'},
-      // {date: newDate(2023, 01, 01), reason: 'holiday'},
-      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
-    ], // array of dates
+    availabilityCalender: "./scripts/calendar/sari.png",
     skills: [
       {skillName: 'Java', skillLevel: 10}, 
       {skillName: 'UML', skillLevel: 6}, 
@@ -169,14 +123,7 @@ let db_resources = [
     uid: "R-736589",
     name: "Mrunal Prakash Gavali",
     title: "Software Designer",
-    availabilityCalender: [
-      // {date: newDate(2022, 12, 24), reason: 'vacation'},
-      // {date: newDate(2022, 12, 25), reason: 'holiday'},
-      // {date: newDate(2022, 12, 31), reason: 'vacation'},
-      // {date: newDate(2022, 11, 27), reason: 'holiday'},
-      // {date: newDate(2023, 01, 01), reason: 'holiday'},
-      // {date: newDate(2023, 01, 28), reason: 'T-152698347'},
-    ], // array of dates
+    availabilityCalender: "./scripts/calendar/mrunal.png",
     skills: [
       {skillName: 'Python', skillLevel: 10}, 
       {skillName: 'Java', skillLevel: 8}, 

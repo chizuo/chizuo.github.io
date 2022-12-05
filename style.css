@@ -27,3 +27,7 @@ a img {
 #date-created-column {
     cursor: pointer;
 }
+
+#icon {
+    height: 18px;
+}

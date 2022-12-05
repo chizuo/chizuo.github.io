@@ -59,7 +59,7 @@ function newResource() {
 
   $("#add-status-button").on("click", function () {
     alert("Loading status request form");
-    newActionItem();
+    newResource();
   });
 }
 
@@ -68,8 +68,8 @@ function loadResource() {
         <div id="appBody" class="container">
             <form>
                 <div class="form-group">
-                    <label for="action-items">Resources</label>
-                    <select class="form-control" id="action-items">
+                    <label for="resource">Resources</label>
+                    <select class="form-control" id="resource">
                         <option></option>
                     </select>
                 </div>
@@ -80,7 +80,7 @@ function loadResource() {
 
   for (let i = 0; i < db_resources.length; i++) {
     let { uid, name } = db_resources[i];
-    $("#action-items").append(`<option value=${i}>${uid} : ${name}</option>`);
+    $("#resource").append(`<option value=${i}>${uid} : ${name}</option>`);
   }
 }
 
@@ -111,7 +111,7 @@ function formatDate(date, month, year) {
 }
 
 function openResource() {
-  let index = document.getElementById("action-items").value;
+  let index = document.getElementById("resource").value;
   let { uid, name, title, availabilityCalender, skills, payRate } = db_resources[index];
   $("#appBody").replaceWith(`
     <div id="appBody" class="container">
@@ -133,8 +133,8 @@ function openResource() {
                 <input id="date-created" class="form-control" type="text" placeholder="$${payRate}/hr" readonly>
             </div>
             <div class="form-group">
-                <label for="date-assigned">Availability Calendar</label>
-                <input id="date-assigned" class="form-control" type="date" value="${"skills[0].name"}">
+                <div>Availability Calendar</div>
+                <a href="${availabilityCalender}" target="_blank"><img id="icon" src="./scripts/calendar/icon.png"></a>
             </div>
             <div class="form-group">
                 <label for="skills">List of Skills</label>
@@ -153,20 +153,8 @@ function openResource() {
     $("#skills").append(`<option value=${i}>${skillName} : ${skillLevel}</option>`);
   }
 
-  //   for (let i = 0; i < db_status.length; i++) {
-  //     $("#resource").append(`<option value=${i}>${db_resources[i]}</option>`);
-  //   }
-
   $("#name").val(name);
-  $("#description").val(description);
   $("#resource").val(resource);
-  $("#status").val(status);
-  $("#status-description").val(statusDescription);
-  $("#status-description").change(function () {
-    $("#update-date").replaceWith(
-      `<input id="update-date" class="form-control" type="text" placeholder="${new Date().toLocaleDateString()}" readonly>`
-    );
-  });
   $("#save-button").on("click", function () {
     alert(`${uid} : ${name} has been updated.`);
     location.reload();
@@ -178,10 +166,6 @@ function openResource() {
     } else {
       alert(`Delete request of ${uid} : ${name} been cancelled`);
     }
-  });
-  $("#add-status-button").on("click", function () {
-    alert("Loading status request form");
-    newResource();
   });
 }
 
@@ -248,7 +232,7 @@ function tabularView() {
             <td>${name}</td>
             <td>${title}</td>
             <td>${payRate}</td>
-            <td>${availabilityCalender}</td>
+            <td><a href="${availabilityCalender}" target="_blank"><img id="icon" src="./scripts/calendar/icon.png"></a></td>
             <td>${skillList}</td>
         </tr>`;
     $("tbody").append(row);
