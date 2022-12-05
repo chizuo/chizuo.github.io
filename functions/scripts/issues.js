@@ -161,7 +161,6 @@ function sortDesc(data) {
 }
 
 function filterDate(type="", date="", delta="") {
-   //date = date == "" ? date : date.toLocaleDateString();
     let output = delta == "" ? `${type} ${date}` : `${type} ${date} +/- ${delta} days` ;
     alert(`table contents are now filtered by ${output}`);
     tabularView();
