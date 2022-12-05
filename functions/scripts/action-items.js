@@ -56,7 +56,7 @@ var db_actionItems = [
 const db_status = ["","Open","Closed","In Progress","Hold","Complete"];
 const db_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
 const db_sortOptions = ["name", "date created", "date assigned","expected completion date","actual completion date","update date"];
-const db_filterOptions = ["resource", "status", "date created", "date assigned", "update date","actual completion date", "expected completion date", "past due", "specified days until expected completion"];
+const db_filterOptions = ["", "date created", "date assigned", "update date","actual completion date", "expected completion date", "past due", "specified days until expected completion"];
 
 function newActionItem() {
     $("#appBody").replaceWith(`
@@ -167,10 +167,12 @@ function sortDesc(data) {
     tabularView();
 }
 
-function filterStatus(data) {
-    alert(`table contents are now filtered by status=${data}`);
+function filterDate(type="", date="", delta="") {
+    let output = delta == "" ? `${type} ${date}` : `${type} ${date} +/- ${delta} days` ;
+    alert(`table contents are now filtered by ${output}`);
     tabularView();
 }
+
 
 function filterResource(data) {
     alert(`table contents are now filtered by resource=${data}`);
@@ -298,9 +300,17 @@ function tabularView() {
                     <button id="resource-filter-button" class="btn btn-secondary">filter</button>
                 </div>
                 <div class="col">
-                    <label for="status-filter">Status filter</label>
-                    <select class="form-control" id="status-filter"></select>
-                    <button id="status-filter-button" class="btn btn-secondary">filter</button>
+                    <label for="date-filter">Filter by</label>
+                    <select class="form-control" id="date-filter"></select>
+                    <button id="date-filter-button" class="btn btn-secondary">filter</button>
+                </div>
+                <div class="col">
+                    <label for="date">Date</label>
+                    <input id="date" class="form-control" type="date">
+                </div>
+                <div class="col">
+                    <label for="days">+/-</label>
+                    <input type="text" class="form-control" id="days">
                 </div>
             </div><br>
         </form>
@@ -352,14 +362,14 @@ function tabularView() {
         $("#resource-filter").append(`<option value="${db_resource[i]}") }>${db_resource[i]}</option>`);
     }
 
-    for(let i=0; i < db_status.length; i++) {
-        $("#status-filter").append(`<option value="${db_status[i]}") }>${db_status[i]}</option>`);
+    for(let i=0; i < db_filterOptions.length; i++) {
+        $("#date-filter").append(`<option value="${db_filterOptions[i]}") }>${db_filterOptions[i]}</option>`);
     }
 
     $("#sort-asc-button").on("click", function(){ sortAsc($("#sort").val()); });
     $("#sort-desc-button").on("click", function(){ sortDesc($("#sort").val()); });
     $("#resource-filter-button").on("click", function(){ filterResource($("#resource-filter").val()); });
-    $("#status-filter-button").on("click", function(){ filterStatus($("#status-filter").val()); });
+    $("#date-filter-button").on("click", function(){ filterDate($("#date-filter").val(), $("#date").val(), $("#days").val()); });
 }
 
 function init() {
