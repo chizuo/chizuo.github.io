@@ -1,9 +1,5 @@
 const db_sortOptions = [
-    "date created",
-    "date assigned",
-    "expected completion date",
-    "actual completion date",
-    "update date",
+    "name"
   ];
   
 const db_filterOptions = ["resource, status"];
@@ -94,16 +90,6 @@ function sortDesc(data) {
   tabularView();
 }
 
-function filterStatus(data) {
-  alert(`table contents are now filtered by status=${data}`);
-  tabularView();
-}
-
-function filterResource(data) {
-  alert(`table contents are now filtered by resource=${data}`);
-  tabularView();
-}
-
 function formatDate(date, month, year) {
   let Month = parseInt(month) < 10 ? `0${month}` : month;
   let Date = parseInt(date) < 10 ? `0${date}` : date;
@@ -182,16 +168,6 @@ function tabularView() {
                         <button id="sort-desc-button" class="btn btn-secondary">descending</button>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="resource-filter">Resource filter</label>
-                    <select class="form-control" id="resource-filter"><option></option></select>
-                    <button id="resource-filter-button" class="btn btn-secondary">filter</button>
-                </div>
-                <div class="col">
-                    <label for="status-filter">Status filter</label>
-                    <select class="form-control" id="status-filter"></select>
-                    <button id="status-filter-button" class="btn btn-secondary">filter</button>
-                </div>
             </div><br>
         </form>
         <table id="tabView" class="table table-striped">
@@ -239,34 +215,15 @@ function tabularView() {
   }
 
   for (let i = 0; i < db_sortOptions.length; i++) {
-    $("#sort").append(
-      `<option value="${db_sortOptions[i]}") }>${db_sortOptions[i]}</option>`
-    );
-  }
-
-  for (let i = 0; i < db_resource.length; i++) {
-    $("#resource-filter").append(
-      `<option value="${db_resource[i]}") }>${db_resource[i]}</option>`
-    );
-  }
-
-  for (let i = 0; i < db_status.length; i++) {
-    $("#status-filter").append(
-      `<option value="${db_status[i]}") }>${db_status[i]}</option>`
-    );
+    $("#sort").append(`<option value="${db_sortOptions[i]}">${db_sortOptions[i]}</option>`);
   }
 
   $("#sort-asc-button").on("click", function () {
     sortAsc($("#sort").val());
   });
+
   $("#sort-desc-button").on("click", function () {
     sortDesc($("#sort").val());
-  });
-  $("#resource-filter-button").on("click", function () {
-    filterResource($("#resource-filter").val());
-  });
-  $("#status-filter-button").on("click", function () {
-    filterStatus($("#status-filter").val());
   });
 }
 
