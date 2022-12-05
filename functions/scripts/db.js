@@ -163,43 +163,40 @@ let db_deliverables = [
 
 let db_requirements = [
   {
-    uid: "R-736789",
+    uid: "REQ-736789",
     name: "Requirement 1",
     text: "This is the first requirement",
-    sourceDocument: "Document 1",
-    locationInSourceDocument: "Page 1",
+    sourceDocument: "Source Document 1",
     sourcePage: "Page 1",
     sourceParagraph: "Paragraph 1",
-    clientReference: "Client 1",
+    clientReference: "Client Document 1",
     clientPage: "Page 1",
     clientParagraph: "Paragraph 1",
-    DeliverableId: [],
+    DeliverableId: 0
   },
   {
-    uid: "R-736733",
+    uid: "REQ-736733",
     name: "Requirement 2",
     text: "This is the second requirement",
-    sourceDocument: "Document 2",
-    locationInSourceDocument: "Page 2",
+    sourceDocument: "Source Document 2",
     sourcePage: "Page 2",
     sourceParagraph: "Paragraph 2",
-    clientReference: "Client 2",
+    clientReference: "Client Document 2",
     clientPage: "Page 2",
     clientParagraph: "Paragraph 2",
-    DeliverableId: [],
+    DeliverableId: 1
   },
   {
-    uid: "R-732289",
+    uid: "REQ-732289",
     name: "Requirement 3",
     text: "This is the third requirement",
-    sourceDocument: "Document 3",
-    locationInSourceDocument: "Page 3",
+    sourceDocument: "Source Document 3",
     sourcePage: "Page 3",
     sourceParagraph: "Paragraph 3",
-    clientReference: "Client 3",
+    clientReference: "Client Document 3",
     clientPage: "Page 3",
     clientParagraph: "Paragraph 3",
-    DeliverableId: [],
+    DeliverableId: 2
   },
 ];
 

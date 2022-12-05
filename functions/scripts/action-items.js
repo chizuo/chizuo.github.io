@@ -55,7 +55,7 @@ var db_actionItems = [
 
 const db_status = ["","Open","Closed","In Progress","Hold","Complete"];
 const db_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
-const db_sortOptions = ["date created", "date assigned","expected completion date","actual completion date","update date"];
+const db_sortOptions = ["name", "date created", "date assigned","expected completion date","actual completion date","update date"];
 const db_filterOptions = ["resource, status"];
 
 function newActionItem() {
@@ -249,7 +249,7 @@ function openActionItem() {
         $("#status").append(`<option value=${i}>${db_status[i]}</option>`)
     }
 
-    for(let i = 0; i < db_status.length; i++) {
+    for(let i = 0; i < db_resource.length; i++) {
         $("#resource").append(`<option value=${i}>${db_resource[i]}</option>`)
     }
 
