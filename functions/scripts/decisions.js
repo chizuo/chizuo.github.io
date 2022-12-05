@@ -8,7 +8,7 @@ const db_sortOptions = [
 
 const db_filterOptions = ["resource, status"];
 
-function newActionItem() {
+function newDecision() {
 $("#appBody").replaceWith(`
       <div id="appBody" class="container">
           <form>
@@ -122,11 +122,11 @@ $("#save-button").on("click", function () {
 
 $("#add-status-button").on("click", function () {
   alert("Loading status request form");
-  newActionItem();
+  newDecision();
 });
 }
 
-function loadActionItems() {
+function loadDecisions() {
 $("#appBody").replaceWith(`
       <div id="appBody" class="container">
           <form>
@@ -136,7 +136,7 @@ $("#appBody").replaceWith(`
                       <option></option>
                   </select>
               </div>
-              <input onclick="openResource()" id="load-button" class="btn btn-primary" value="Open">
+              <input onclick="openDecision()" id="load-button" class="btn btn-primary" value="Open">
           </form>
       </div> 
   `);
@@ -162,8 +162,8 @@ function filterStatus(data) {
   tabularView();
 }
 
-function filterResource(data) {
-  alert(`table contents are now filtered by resource=${data}`);
+function filterDecision(data) {
+  alert(`table contents are now filtered by decision=${data}`);
   tabularView();
 }
 
@@ -173,13 +173,13 @@ function formatDate(date, month, year) {
   return `${year}-${Month}-${Date}`;
 }
 
-function openResource() {
+function openDecision() {
 let index = document.getElementById("decisions").value;
 let { 
   uid, name, description, priority, impact, dateNeeded, dateMade, 
   resource, expectedCompletionDate, actualCompletionDate, status, 
-  statusDescription, listOfRefNotes, updateDate
-  } = db_decision[index];
+  listofMeetingNotes, statusDescription, listOfRefNotes, updateDate
+} = db_decision[index];
 $("#appBody").replaceWith(`
   <div id="appBody" class="container">
       <form>
@@ -192,22 +192,63 @@ $("#appBody").replaceWith(`
               <input type="text" class="form-control" id="name">
           </div>
           <div class="form-group">
-              <label for="title">Title</label>
-              <input  class="form-control" type="text" placeholder="${title}" readonly>
+                <label for="description">Description</label>
+                <input id="description" class="form-control" type="text" placeholder="${description}">
           </div>
           <div class="form-group">
-              <label for="date-created">Pay Rate</label>
-              <input id="date-created" class="form-control" type="text" placeholder="$${payRate}/hr" readonly>
+              <label for="priority">Priority</label>
+              <input type="text" class="form-control" placeholder="${priority}" readonly>
           </div>
           <div class="form-group">
-              <label for="date-assigned">Availability Calendar</label>
-              <input id="date-assigned" class="form-control" type="date" value="${"skills[0].name"}">
+              <label for="impact">Impact</label>
+              <input type="text" class="form-control" placeholder="${impact}" readonly>
           </div>
           <div class="form-group">
-              <label for="resource">List of Skills</label>
-              <select class="form-control" id="resource">
-                  <option>${JSON.stringify(skills)}</option>
-              </select>
+              <label for="date-needed">Date Needed</label>
+              <input id="date-needed" class="form-control" type="date" placeholder="${dateNeeded}">
+          </div>
+          <div class="form-group">
+              <label for="date-made">Date Made</label>
+              <input id="date-made" class="form-control" type="date" placeholder="${dateMade}">
+          </div>
+          <div class="form-group">
+                <label for="decision-maker">Decision Maker</label>
+                <input type="text" class="form-control" placeholder="${resource}" readonly>
+          </div>
+          <div class="form-group">
+              <label for="expected-completion-date">Expected Completion Date</label>
+              <input id="expected-completion-date" class="form-control" type="date" placeholder="${expectedCompletionDate}">
+          </div>
+          <div class="form-group">
+              <label for="actual-completion-date">Actual Completion Date</label>
+              <input id="actual-completion-date" class="form-control" type="date" placeholder="${actualCompletionDate}">
+          </div>
+          <div class="form-group">
+              <label for="list-of-meeting-notes">List of Meeting Notes</label>
+              <input id="list-of-meeting-notes" class="form-control" type="text" placeholder="${listofMeetingNotes}">
+          </div>
+          <div class="form-group">
+              <label for="note-date">Note Date</label>
+              <input id="note-date" class="form-control" type="date" placeholder="${dateMade}">
+          </div>
+          <div class="form-group">
+              <label for="date-created">Date Created</label>
+              <input id="note-date" class="form-control" type="date" placeholder="${dateMade}">
+          </div>
+          <div class="form-group">
+                <label for="status">Status</label>
+                <input id="status" class="form-control" type="text" placeholder="${db_statusDecision}" readonly>
+          </div>
+          <div class="form-group">
+                <label for="status-description">Status Description</label>
+                <input id="status-description" class="form-control" type="text" placeholder="${statusDescription}">
+          </div>
+          <div class="form-group">
+                <label for="list-of-reference-notes">List of Reference Notes</label>
+                <input id="list-of-meeting-notes" class="form-control" type="text" placeholder="${listOfRefNotes}">
+          <div class="form-group">
+              <label for="update-date">Update Date</label>
+              <input id="update-date" class="form-control" type="date" placeholder="${updateDate}">
           </div>
           <input class="btn btn-primary" type="submit" value="Save" id="save-button">
           <input class="btn btn-danger" type="button" value="Delete" id="delete-button">
@@ -247,7 +288,7 @@ for (let i = 0; i < db_status.length; i++) {
   });
   $("#add-status-button").on("click", function () {
     alert("Loading status request form");
-    newActionItem();
+    newDecision();
   });
 }
 
@@ -346,12 +387,12 @@ $("#status-filter-button").on("click", function () {
 }
 
 function init() {
-loadActionItems();
-$("#new-action-item-button").on("click", newActionItem);
-$("#open-action-item-button").on("click", loadActionItems);
+loadDecisions();
+$("#new-action-item-button").on("click", newDecision);
+$("#open-action-item-button").on("click", loadDecisions);
 $("#tab-action-item-button").on("click", tabularView);
-$("#open").on("click", loadActionItems);
-$("#new").on("click", newActionItem);
+$("#open").on("click", loadDecisions);
+$("#new").on("click", newDecision);
 $("#tab").on("click", tabularView);
 }
 

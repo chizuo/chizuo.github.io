@@ -459,6 +459,7 @@ const db_decision = [
     resource: ["R-736789", "R-736733", "R-736733"],
     expectedCompletionDate: new Date(2022, 7, 30),
     actualCompletionDate: new Date(2022, 7, 30),
+    listofMeetingNotes: ["Note 1", "Note 2", "Note 3"],
     statusId: "Open",
     statusDescription: "This is the status description",
     listOfRefNotes: ["Note 1", "Note 2", "Note 3"],
@@ -478,6 +479,7 @@ const db_decision = [
     actualCompletionDate: new Date(2022, 7, 30),
     statusId: [1, 2, 3],
     statusDescription: "This is the status description",
+    listOfRefNotes: ["Note 1", "Note 2", "Note 3"],
     updateDate: new Date(2022, 7, 30),
   },
   {
@@ -494,6 +496,7 @@ const db_decision = [
     actualCompletionDate: new Date(2022, 7, 30),
     statusId: [1, 2, 3],
     statusDescription: "This is the status description",
+    listOfRefNotes: ["Note 1", "Note 2", "Note 3"],
     updateDate: new Date(2022, 7, 30),
   },
 ];
