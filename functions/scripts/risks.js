@@ -229,7 +229,7 @@ function openRisk() {
     $("#mitigation").val(mitigation);
     $("#contingency").val(contingency);
     $("#score").val(riskScore);
-    let AI = "boom";
+    let AI = "";
     for (let i = 0; i < actionItems.length; i++) {
         let actionItem = db_actionItems[actionItems[i]];
         AI = AI.length === 0 ? `${actionItem.uid}:${actionItem.name}` : AI + ", " + `${actionItem.uid}:${actionItem.name}`;
@@ -241,8 +241,7 @@ function openRisk() {
 }
 
 function tabularView() {
-    $("#appBody").replaceWith(`
-    <div id="appBody">
+    $("#appBody").html(`
         <form class="container">
             <div class="row">
                 <div class="col">
@@ -271,57 +270,51 @@ function tabularView() {
         <table id="tabView" class="table table-striped">
             <thead>
                 <tr>
-                <th scope="col">uid</th>
-                <th scope="col">name</th>
-                <th scope="col">description</th>
-                <th scope="col">priority</th>
-                <th scope="col">severity</th>
-                <th scope="col">raised</th>
-                <th scope="col">assigned</th>
-                <th scope="col">expected completion</th>
-                <th scope="col">actual completion</th>
-                <th scope="col">status</th>
-                <th scope="col">status description</th>
-                <th scope="col">last updated</th>
-                <th scope="col">action item</th>
-                <th scope="col">decision</th>
+                    <th scope="col">uid</th>
+                    <th scope="col">name</th>
+                    <th scope="col">category</th>
+                    <th scope="col">probability</th>
+                    <th scope="col">impact</th>
+                    <th scope="col">mitigation</th>
+                    <th scope="col">contingency</th>
+                    <th scope="col">risk score</th>
+                    <th scope="col">Action By</th>
+                    <th scope="col">Action Items</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
-    </div>
     `);
 
-    for(let i = 0; i < db_issues.length; i++) {
-        let {uid, name, description, priority, severity, status, statusDescription, dateRaised, dateAssigned, expectedCompletionDate, actualCompletionDate, updateDate, actionItem, decision} = db_issues[i];
-        let AI = db_actionItems[actionItem];
-        let D = db_decision[decision];
+    for(let i = 0; i < db_risks.length; i++) {
+        let { uid, name, category, probability, impact, mitigation, contingency, riskScore, actionBy, actionItems } = db_risks[i];
+        let AI = "";
+        for (let i = 0; i < actionItems.length; i++) {
+            let actionItem = db_actionItems[actionItems[i]];
+            AI = AI.length === 0 ? `${actionItem.uid}:${actionItem.name}` : AI + ", " + `${actionItem.uid}:${actionItem.name}`;
+        }
         let row = `
         <tr>
             <th>${uid}</th>
             <td>${name}</td>
-            <td>${description}</td>
-            <td>${db_issues_priority[priority]}</td>
-            <td>${db_issues_severity[severity]}</td>
-            <td>${dateRaised.toLocaleDateString()}</td>
-            <td>${dateAssigned == null ? "not set" : dateAssigned.toLocaleDateString()}</td>
-            <td>${expectedCompletionDate == null ? "not set" : expectedCompletionDate.toLocaleDateString()}</td>
-            <td>${actualCompletionDate == null ? "not set" : actualCompletionDate.toLocaleDateString()}</td>
-            <td>${db_issues_status[status]}</td>
-            <td>${statusDescription}</td>
-            <td>${updateDate == null ? "not set" : updateDate.toLocaleDateString()}</td>
-            <td>${AI.uid} : ${AI.name}</td>
-            <td>${D.uid} : ${D.name}</td>
+            <td>${db_risks_category[category]}</td>
+            <td>${probability}</td>
+            <td>${db_risks_impact[impact]}</td>
+            <td>${mitigation}</td>
+            <td>${contingency}</td>
+            <td>${riskScore}</td>
+            <td>${actionBy == null ? "not set" : actionBy.toLocaleDateString()}</td>
+            <td>${AI}</td>
         </tr>`;
         $("tbody").append(row);
     }
 
-    for(let i=0; i < db_issues_sort.length; i++) {
-        $("#sort").append(`<option value="${db_issues_sort[i]}"}>${db_issues_sort[i]}</option>`);
+    for(let i=0; i < db_risks_sort.length; i++) {
+        $("#sort").append(`<option value="${db_risks_sort[i]}"}>${db_risks_sort[i]}</option>`);
     }
 
-    for(let i=0; i < db_issues_filter.length; i++) {
-        $("#date-filter").append(`<option value="${db_issues_filter[i]}">${db_issues_filter[i]}</option>`);
+    for(let i=0; i < db_risks_filter.length; i++) {
+        $("#date-filter").append(`<option value="${db_risks_filter[i]}">${db_risks_filter[i]}</option>`);
     }
 
 

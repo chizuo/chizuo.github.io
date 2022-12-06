@@ -243,7 +243,7 @@ const db_risks = [
     mitigation: "Mitigation plan 2",
     contingency: "Contingency plan 2",
     riskScore: 1,
-    actionBy: new Date(2022, 7, 30),
+    actionBy: new Date(2022, 8, 22),
     actionItems: [3]
   },
   {
@@ -255,13 +255,15 @@ const db_risks = [
     mitigation: "Mitigation plan 3",
     contingency: "Contingency plan 3",
     riskScore: 10,
-    actionBy: new Date(2022, 7, 30),
+    actionBy: new Date(2022, 10, 30),
     actionItems: [0]
   },
 ];
 
 const db_risks_impact = ["","High","Medium","Low"];
 const db_risks_category = ["","Schedule","Budget","Scope"];
+const db_risks_sort = ["","name","Action By"];
+const db_risks_filter = ["","Action By"];
 
 let db_impacts = [
   {
