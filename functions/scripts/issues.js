@@ -11,7 +11,7 @@ function newIssue() {
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Issue."></textarea>
+            <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Decision."></textarea>
         </div>
         <div class="form-group row">
             <div class="col">
@@ -26,13 +26,13 @@ function newIssue() {
         </div>
         <div class="form-group row">
             <div class="col">
-                <label for="severity">Severity</label>
-                <select class="form-control" id="severity"></select>
+                <label for="impact">Impact</label>
+                <select class="form-control" id="impact"></select>
             </div>
             <div class="col">
-                <label for="severity-add">Add a Severity</label>
-                <input type="text" class="form-control" id="severity-add">
-                <button onclick="addSeverity()" type="button" id="add-severity-button" class="btn btn-secondary">Add</button>
+                <label for="impact-add">Add to Impact</label>
+                <input type="text" class="form-control" id="impact-add">
+                <button onclick="addImpact()" type="button" id="add-severity-button" class="btn btn-secondary">Add</button>
             </div>
         </div>
         <div class="form-group">
@@ -41,7 +41,7 @@ function newIssue() {
         </div>
         <div class="form-group">
             <label for="date-assigned">Date Assigned</label>
-            <input id="expected-completion-date" class="form-control" type="date">
+            <input id="date-assigned" class="form-control" type="date">
         </div>
         <div class="form-group">
             <label for="expected-completion-date">Expected Completion Date</label>

@@ -83,7 +83,7 @@ function newActionItem() {
                     <input id="date-assigned" class="form-control" type="date">
                 </div>
                 <div class="form-group">
-                    <label for="action-items">Resource Assigned</label>
+                    <label for="resource">Resource Assigned</label>
                     <select class="form-control" id="resource">
                         <option></option>
                     </select>
