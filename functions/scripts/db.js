@@ -1,41 +1,4 @@
-let db_skills = [
-  {
-    uid: "skill-1",
-    type: "HTML",
-    value: 90,
-    level: "Intermediate",
-  },
-  {
-    uid: "skill-2",
-    type: "CSS",
-    value: 90,
-    level: "Intermediate",
-  },
-  {
-    uid: "skill-3",
-    type: "JS",
-    value: 50,
-    level: "Intermediate",
-  },
-  {
-    uid: "skill-4",
-    type: "TS",
-    value: 50,
-    level: "Intermediate",
-  },
-  {
-    uid: "skill-5",
-    type: "Bootstrap",
-    value: 10,
-    level: "Intermediate",
-  },
-  {
-    uid: "skill-6",
-    type: "Scss",
-    value: 10,
-    level: "Intermediate",
-  },
-];
+let db_skills = ["HTML","CSS","JavaScript","TypeScript","PHP","Java","C#","Lisp","Ada","Haskell","UML","Ruby","C++","C","Fortran"];
 
 let db_availibilityCalendar = [
   {
@@ -263,34 +226,37 @@ const db_risks = [
     uid: "R-736789",
     name: "Risk 1",
     category: 1,
-    probability: "25%",
+    probability: 25,
     impact: 3,
     mitigation: "Mitigation plan 1",
     contingency: "Contingency plan 1",
     riskScore: 3,
     actionBy: new Date(2022, 7, 30),
+    actionItems: [1,2]
   },
   {
     uid: "R-736733",
     name: "Risk 2",
     category: 3,
-    probability: "10%",
+    probability: 10,
     impact: 2,
     mitigation: "Mitigation plan 2",
     contingency: "Contingency plan 2",
     riskScore: 1,
     actionBy: new Date(2022, 7, 30),
+    actionItems: [3]
   },
   {
     uid: "R-732289",
     name: "Risk 3",
     category: "Category 3",
-    probability: "45%",
+    probability: 45,
     impact: 1,
     mitigation: "Mitigation plan 3",
     contingency: "Contingency plan 3",
     riskScore: 10,
     actionBy: new Date(2022, 7, 30),
+    actionItems: [0]
   },
 ];
 
@@ -312,7 +278,7 @@ let db_impacts = [
   },
 ];
 
-var db_actionItems = [
+const db_actionItems = [
   {
     uid: "AI-736789",
     name: "Replace Antenna Module#455",

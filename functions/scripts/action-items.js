@@ -213,7 +213,7 @@ function openActionItem() {
                 <input id="date-assigned" class="form-control" type="date" value="${formatDate(dateAssigned.getDate(),dateAssigned.getMonth(),dateAssigned.getFullYear())}">
             </div>
             <div class="form-group">
-                <label for="resource">Action Item Assigned</label>
+                <label for="resource">Resource Assigned</label>
                 <select class="form-control" id="resource">
                     <option></option>
                 </select>

@@ -4,10 +4,16 @@ function newRisk() {
             <label for="uid">Unique I.D.</label>
             <input id="uid" class="form-control" type="text" placeholder="R-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
         </div>
-        <div class="form-group">
-            <label for="category">Category</label>
-            <select class="form-control" id="category"></select>
-            <button id="add-category-button" class="btn btn-secondary">Add to category</button>
+        <div class="form-group row">
+            <div class="col">
+                <label for="category">Category</label>
+                <select class="form-control" id="category"></select>
+            </div>
+            <div class="col">
+                <label for="category-input">Add to Category</label>
+                <input type="text" class="form-control" id="category-input">
+                <button onclick="addCategory()" type="button" id="add-category-button" class="btn btn-secondary">Add</button>
+            </div>
         </div>
         <div class="form-group">
             <label for="name">Name</label>
@@ -17,10 +23,16 @@ function newRisk() {
             <label for="probability">Probability</label>
             <input type="number" class="form-control" id="probability" min="0" max="100" placeholder="integer representing %">
         </div>
-        <div class="form-group">
-            <label for="impact">Impact</label>
-            <select class="form-control" id="severity"></select>
-            <button id="add-impact-button" class="btn btn-secondary">Add to impact</button>
+        <div class="form-group row">
+            <div class="col">
+                <label for="impact">Impact</label>
+                <select class="form-control" id="impact"></select>
+            </div>
+            <div class="col">
+                <label for="impact-input">Add to Impact</label>
+                <input type="text" class="form-control" id="impact-input">
+                <button onclick="addImpact()" type="button" id="add-impact-button" class="btn btn-secondary">Add</button>
+            </div>
         </div>
         <div class="form-group">
             <label for="mitigation">Mitigation</label>
@@ -42,7 +54,7 @@ function newRisk() {
             <label for="action-items-list">List of Action Items</label>
             <input class="form-control" list="action-items-list" name="action-items-list" id="action-items-input">
             <datalist id="action-items-list"></datalist>
-            <button onclick="addActionItem()" id="open-button" class="btn btn-primary" type="button">Add</button>
+            <button onclick="addActionItem()" id="open-button" class="btn btn-primary" type="button">Add to Action Items for this Risk</button>
         </div>
         <div class="form-group">
             <label for="action-items">Action Items for Risk</label>
@@ -61,17 +73,27 @@ function addActionItem() {
     $("#action-items-input").val("");
 }
 
+function addCategory() {
+    $("#category").append(`<option value=${$("#category-input").val()}>${$("#category-input").val()}</option>`);
+    $("#category-input").val("");
+}
+
+function addImpact() {
+    $("#impact").append(`<option value=${$("#impact-input").val()}>${$("#impact-input").val()}</option>`);
+    $("#impact-input").val("");
+}
+
 function loadFormActions(UID, NAME) {
     for(let i = 0; i < db_actionItems.length; i++) {
-        $("#action-items-list").append(`<option value=${db_actionItems[i].uid}>`);
+        $("#action-items-list").append(`<option value="${db_actionItems[i].uid}:${db_actionItems[i].name}">`);
     }
 
     for(let i = 0; i < db_risks_impact.length; i++) {
-        $("#severity").append(`<option value=${i}>${db_risks_impact[i]}</option>`)
+        $("#impact").append(`<option value=${db_risks_impact[i]}>${db_risks_impact[i]}</option>`);
     }
 
     for(let i = 0; i < db_risks_category.length; i++) {
-        $("#category").append(`<option value=${i}>${db_risks_category[i]}</option>`)
+        $("#category").append(`<option value=${db_risks_category[i]}>${db_risks_category[i]}</option>`);
     }
 
     $("#save-button").on("click", function() {
@@ -86,16 +108,6 @@ function loadFormActions(UID, NAME) {
         } else {
             alert(`Delete request of ${UID} : ${NAME} been cancelled`);
         }
-    });
-
-    $("#add-category-button").on("click", function() {
-        alert("Loading add category request form");
-        newRisk();
-    });
-
-    $("#add-impact-button").on("click", function() {
-        alert("Loading add impact request form");
-        newRisk();
     });
 }
 
@@ -141,94 +153,91 @@ function formatDate(date, month, year) {
 }
 
 function openRisk() {
-    let index = document.getElementById("issues").value;
-    let {uid, name, description, priority, severity, status, statusDescription, dateRaised, dateAssigned, expectedCompletionDate, actualCompletionDate, updateDate, actionItem, decision} = db_issues[index];
+    let index = document.getElementById("risks").value;
+    let { uid, name, category, probability, impact, mitigation, contingency, riskScore, actionBy, actionItems } = db_risks[index];
 
-    $("#appBody").replaceWith(`<div id="appBody" class="container">
-        <form>
-            <div class="form-group">
-                <label for="uid">Unique I.D.</label>
-                <input id="uid" class="form-control" type="text" readonly>
+    $("#appBody").html(`<form>
+        <div class="form-group">
+            <label for="uid">Unique I.D.</label>
+            <input id="uid" class="form-control" type="text" placeholder=${uid} readonly>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="category">Category</label>
+                <select class="form-control" id="category"></select>
             </div>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name">
+            <div class="col">
+            <label for="category">Add to Category</label>
+                <input class="form-control" id="category-add">
+                <button onclick="addCategory()" id="add-category-button" class="btn btn-secondary">Add</button>
             </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Issue."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="probability">Probability</label>
+            <input type="number" class="form-control" id="probability" min="0" max="100" placeholder="integer representing %">
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="impact">Impact</label>
+                <select class="form-control" id="impact"></select>
             </div>
-            <div class="form-group">
-                <label for="priority">Priority</label>
-                <select class="form-control" id="priority"></select>
-                <button id="add-priority-button" class="btn btn-secondary">Add a priority</button>
+            <div class="col">
+                <label for="impact-input">Add to Impact</label>
+                <input type="text" class="form-control" id="impact-input">
+                <button onclick="addImpact()" type="button" id="add-impact-button" class="btn btn-secondary">Add</button>
             </div>
-            <div class="form-group">
-                <label for="severity">Severity</label>
-                <select class="form-control" id="severity"></select>
-                <button id="add-severity-button" class="btn btn-secondary">Add a severity</button>
-            </div>
-            <div class="form-group">
-                <label for="date-raised">Date Raised</label>
-                <input id="date-raised" class="form-control" type="text" readonly>
-            </div>
-            <div class="form-group">
-                <label for="date-assigned">Date Assigned</label>
-                <input id="date-assigned" class="form-control" type="date">
-            </div>
-            <div class="form-group">
-                <label for="expected-completion-date">Expected Completion Date</label>
-                <input id="expected-completion-date" class="form-control" type="date">
-            </div>
-            <div class="form-group">
-                <label for="actual-completion-date">Actual Completion Date</label>
-                <input id="actual-completion-date" class="form-control" type="date">
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status">
-                </select>
-                <button id="add-status-button" class="btn btn-secondary">Add a status</button>
-            </div>
-            <div class="form-group">
-                <label for="status-description">Status Description</label>
-                <textarea class="form-control" id="status-description" rows="3" placeholder="A short description of the Issue's status as of the last update."></textarea>
-            </div>
-            <div class="form-group">
-                <label for="update-date">Update Date</label>
-                <input id="update-date" class="form-control" type="text" placeholder="${updateDate.toLocaleDateString()}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="action-items">Action Items</label>
-                <select class="form-control" id="action-items">
-                    <option></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="decisions">Decisions</label>
-                <select class="form-control" id="decisions">
-                    <option></option>
-                </select>
-            </div>
-            <input class="btn btn-primary" type="submit" value="Save" id="save-button">
-            <input class="btn btn-danger" type="button" value="Delete" id="delete-button">
-        </form>
-    </div>`);
+                </div>
+        <div class="form-group">
+            <label for="mitigation">Mitigation</label>
+            <textarea class="form-control" id="mitigation" rows="3" placeholder="Plan(s) for preventing, avoiding or reducing the impact of this risk."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="contingency">Contingency</label>
+            <textarea class="form-control" id="contingency" rows="3" placeholder="Plan(s) if this risk is realized."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="score">Risk Score</label>
+            <input type="number" class="form-control" id="score" min="1" max="10">
+        </div>
+        <div class="form-group">
+            <label for="action-date">Action by</label>
+            <input id="action-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="action-items-list">List of Action Items</label>
+            <input class="form-control" list="action-items-list" name="action-items-list" id="action-items-input">
+            <datalist id="action-items-list"></datalist>
+            <button onclick="addActionItem()" id="open-button" class="btn btn-primary" type="button">Add to Action Items for this Risk</button>
+        </div>
+        <div class="form-group">
+            <label for="action-items">Action Items for Risk</label>
+            <input type="text" class="form-control" id="action-items" placeholder="" readonly>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save" id="save-button">
+        <input class="btn btn-danger" id="delete-button" type="button" value="Delete">
+    </form>`);
     loadFormActions(uid, name);
     $("#uid").val(uid);
     $("#name").val(name);
-    $("#description").val(description);
-    $("#priority").val(priority);
-    $("#severity").val(severity);
-    $("#status").val(status);
-    $("#status-description").val(statusDescription);
-    $("#date-raised").replaceWith(`<input id="date-raised" class="form-control" type="text" value="${dateRaised.toLocaleDateString()}" readonly>`);
-    $("#date-assigned").val(formatDate(dateAssigned.getDate(), dateAssigned.getMonth(), dateAssigned.getFullYear()));
-    $("#expected-completion-date").val(formatDate(expectedCompletionDate.getDate(),expectedCompletionDate.getMonth(),expectedCompletionDate.getFullYear()));
-    if(actualCompletionDate !== null)
-        $("#actual-completion-date").val(formatDate(actualCompletionDate.getDate(),actualCompletionDate.getMonth(),actualCompletionDate.getFullYear()));
-    $("#action-items").val(actionItem);
-    $("#decisions").val(decision);
+    $("#category").val(db_risks_category[category]);
+    $("#probability").val(probability);
+    $("#impact").val(db_risks_impact[impact]);
+    $("#mitigation").val(mitigation);
+    $("#contingency").val(contingency);
+    $("#score").val(riskScore);
+    let AI = "boom";
+    for (let i = 0; i < actionItems.length; i++) {
+        let actionItem = db_actionItems[actionItems[i]];
+        AI = AI.length === 0 ? `${actionItem.uid}:${actionItem.name}` : AI + ", " + `${actionItem.uid}:${actionItem.name}`;
+    }
+    $("#action-items").attr("placeholder",AI);
+    if(actionBy != null)
+        $("#action-date").val(formatDate(actionBy.getDate(), actionBy.getMonth(), actionBy.getFullYear()));
+
 }
 
 function tabularView() {

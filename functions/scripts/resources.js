@@ -5,40 +5,49 @@ const db_sortOptions = [
 const db_filterOptions = ["resource, status"];
   
 function newResource() {
-  $("#appBody").replaceWith(`
-        <div id="appBody" class="container">
-            <form>
-                <div class="form-group">
-                    <label for="uid">Unique I.D.</label>
-                    <input id="uid" class="form-control" type="text" placeholder="RES-${
-                      Math.floor(Math.random() * 9999998) + 1000000
-                    }" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="description">Title</label>
-                    <input class="form-control" id="description" ></input>
-                </div>
-                <div class="form-group">
-                    <label for="date-created">Pay Rate</label>
-                    <input id="date-created" class="form-control" type="text" >
-                </div>
-                <div class="form-group">
-                    <label for="date-assigned">Availability Calendar</label>
-                    <input id="date-assigned" class="form-control" type="date">
-                </div>
-                <div class="form-group">
-                    <label for="status">List of Skills</label>
-                    <textarea class="form-control" id="skills" placeholder="A short list of skills"></textarea>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Save" id="save-button">
-                <input class="btn btn-danger" type="reset" value="Clear">
-            </form>
-        </div> 
-    `);
+  $("#appBody").replaceWith(`<div id="appBody" class="container">
+    <form>
+      <div class="form-group">
+        <label for="uid">Unique I.D.</label>
+        <input id="uid" class="form-control" type="text" placeholder="RES-${
+          Math.floor(Math.random() * 9999998) + 1000000
+        }" readonly>
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name">
+      </div>
+      <div class="form-group">
+        <label for="description">Title</label>
+        <input class="form-control" id="description" ></input>
+      </div>
+      <div class="form-group">
+        <label for="date-created">Pay Rate</label>
+        <input id="date-created" class="form-control" type="text" >
+      </div>
+      <div class="form-group">
+        <label for="date-assigned">Availability Calendar</label>
+        <input id="date-assigned" class="form-control" type="date">
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="skill-list">Add to List of Skills</label>
+          <input class="form-control" list="skill-list" id="skill-input">
+          <datalist id="skill-list"></datalist>
+        </div><div class="col">
+          <label for="score">Skill Score</label>
+          <input type="number" class="form-control" id="score" min="1" max="10">
+        </div>
+        <button onclick="addSkill()" id="open-button" class="btn btn-primary" type="button">Add</button>
+      </div>
+      <div class="form-group">
+        <label for="skill">List of Skills</label>
+        <input type="text" class="form-control" id="skill" placeholder="" readonly>
+      </div>
+      <input class="btn btn-primary" type="submit" value="Save" id="save-button">
+      <input class="btn btn-danger" type="reset" value="Clear">
+    </form>
+    </div>`);
 
   for (let i = 0; i < db_status.length; i++) {
     $("#status").append(`<option value=${i}>${db_status[i]}</option>`);
@@ -46,6 +55,10 @@ function newResource() {
 
   for (let i = 0; i < db_status.length; i++) {
     $("#resource").append(`<option value=${i}>${db_resources[i]}</option>`);
+  }
+
+  for (let i = 0; i < db_skills.length; i++) {
+    $("#skill-list").append(`<option value=${db_skills[i]}>`);
   }
 
   $("#save-button").on("click", function () {
@@ -57,6 +70,14 @@ function newResource() {
     alert("Loading status request form");
     newResource();
   });
+}
+
+function addSkill() {
+  let input = $("#skill").attr("placeholder");
+  input = input.length === 0 ? $("#skill-input").val() + `=${$("#score").val()}` : input + ", " + $("#skill-input").val() + `=${$("#score").val()}`;
+  $("#skill").attr("placeholder",`${input}`);
+  $("#skill-input").val("");
+  $("#score").val("");
 }
 
 function loadResource() {

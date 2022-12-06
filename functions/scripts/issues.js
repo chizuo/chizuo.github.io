@@ -255,8 +255,10 @@ function openIssue() {
     $("#status").val(status);
     $("#status-description").val(statusDescription);
     $("#date-raised").replaceWith(`<input id="date-raised" class="form-control" type="text" value="${dateRaised.toLocaleDateString()}" readonly>`);
-    $("#date-assigned").val(formatDate(dateAssigned.getDate(), dateAssigned.getMonth(), dateAssigned.getFullYear()));
-    $("#expected-completion-date").val(formatDate(expectedCompletionDate.getDate(),expectedCompletionDate.getMonth(),expectedCompletionDate.getFullYear()));
+    if(dateAssigned !== null)
+        $("#date-assigned").val(formatDate(dateAssigned.getDate(), dateAssigned.getMonth(), dateAssigned.getFullYear()));
+    if(expectedCompletionDate !== null)
+        $("#expected-completion-date").val(formatDate(expectedCompletionDate.getDate(),expectedCompletionDate.getMonth(),expectedCompletionDate.getFullYear()));
     if(actualCompletionDate !== null)
         $("#actual-completion-date").val(formatDate(actualCompletionDate.getDate(),actualCompletionDate.getMonth(),actualCompletionDate.getFullYear()));
     $("#action-items").val(actionItem);
