@@ -37,8 +37,8 @@ function newResource() {
         </div><div class="col">
           <label for="score">Skill Score</label>
           <input type="number" class="form-control" id="score" min="1" max="10">
+          <button onclick="addSkill()" id="open-button" class="btn btn-secondary" type="button">Add</button>
         </div>
-        <button onclick="addSkill()" id="open-button" class="btn btn-primary" type="button">Add</button>
       </div>
       <div class="form-group">
         <label for="skill">List of Skills</label>
@@ -143,11 +143,20 @@ function openResource() {
                 <div>Availability Calendar</div>
                 <a href="${availabilityCalender}" target="_blank"><img id="icon" src="./scripts/calendar/icon.png"></a>
             </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="skill-list">Add to List of Skills</label>
+                <input class="form-control" list="skill-list" id="skill-input">
+                <datalist id="skill-list"></datalist>
+              </div><div class="col">
+                <label for="score">Skill Score</label>
+                <input type="number" class="form-control" id="score" min="1" max="10">
+                <button onclick="addSkill()" id="open-button" class="btn btn-secondary" type="button">Add</button>
+              </div>
+            </div>
             <div class="form-group">
-                <label for="skills">List of Skills</label>
-                <select class="form-control" id="skills">
-                    <option></option>
-                </select>
+              <label for="skill">List of Skills</label>
+              <input type="text" class="form-control" id="skill" placeholder="" readonly>
             </div>
             <input class="btn btn-primary" type="submit" value="Save" id="save-button">
             <input class="btn btn-danger" type="button" value="Delete" id="delete-button">
@@ -155,11 +164,16 @@ function openResource() {
     </div> 
     `);
 
-  for (let i = 0; i < skills.length; i++) {
-    let { skillName, skillLevel } = skills[i];
-    $("#skills").append(`<option value=${i}>${skillName} : ${skillLevel}</option>`);
+  for (let i = 0; i < db_skills.length; i++) {
+    $("#skill-list").append(`<option value=${db_skills[i]}>`);
   }
 
+  let skill_list = "";
+  for (let i = 0; i < skills.length; i++) {
+    let { skillName, skillLevel } = skills[i];
+    skill_list = skill_list.length === 0 ? `${skillName}=${skillLevel}` : `${skill_list}, ${skillName}=${skillLevel}`;
+  }
+  $("#skill").attr("placeholder",skill_list);
   $("#name").val(name);
   $("#resource").val(resource);
   $("#save-button").on("click", function () {
@@ -220,7 +234,7 @@ function tabularView() {
     let skillList = [];
     for(let j = 0; j < skills.length; j++) {
       const { skillName, skillLevel } = skills[j];
-      skillList.push(` ${skillName} : ${skillLevel}`);
+      skillList.push(` ${skillName}=${skillLevel}`);
     }
 
     let row = `

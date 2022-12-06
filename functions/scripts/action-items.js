@@ -97,11 +97,16 @@ function newActionItem() {
                     <label for="actual-completion-date">Actual Completion Date</label>
                     <input id="actual-completion-date" class="form-control" type="date">
                 </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control" id="status">
-                    </select>
-                    <button id="add-status-button" class="btn btn-secondary">Add a status</button>
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status"></select>
+                    </div>
+                    <div class="col">
+                        <label for="status-add">Add to Status</label>
+                        <input class="form-control" type="text" id="status-add">
+                        <button onclick="addStatus()" id="add-status-button" type="button" class="btn btn-secondary">Add</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="status-description">Status Description</label>
@@ -129,11 +134,11 @@ function newActionItem() {
         alert("entry saved");
         location.reload();
     });
+}
 
-    $("#add-status-button").on("click", function() {
-        alert("Loading status request form");
-        newActionItem();
-    });
+function addStatus() {
+    $("#status").append(`<option value=${$("#status-add").val()}>${$("#status-add").val()}</option>`);
+    $("#status-add").val("");
 }
 
 function loadActionItems() {
@@ -227,11 +232,16 @@ function openActionItem() {
                 <label for="actual-completion-date">Actual Completion Date</label>
                 <input id="actual-completion-date" class="form-control" type="date">
             </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status">
-                </select>
-                <button id="add-status-button" class="btn btn-secondary">Add a status</button>
+            <div class="form-group row">
+                <div class="col">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status"></select>
+                </div>
+                <div class="col">
+                    <label for="status-add">Add to Status</label>
+                    <input class="form-control" type="text" id="status-add">
+                    <button onclick="addStatus()" id="add-status-button" type="button" class="btn btn-secondary">Add</button>
+                </div>
             </div>
             <div class="form-group">
                 <label for="status-description">Status Description</label>
@@ -274,10 +284,6 @@ function openActionItem() {
         } else {
             alert(`Delete request of ${uid} : ${name} been cancelled`);
         }
-    });
-    $("#add-status-button").on("click", function() {
-        alert("Loading status request form");
-        newActionItem();
     });
 }
 
