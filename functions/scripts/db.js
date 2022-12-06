@@ -257,41 +257,45 @@ let db_tasks = [
   },
 ];
 
-let db_risks = [
+/******** Risks ********/
+const db_risks = [
   {
     uid: "R-736789",
     name: "Risk 1",
-    category: "Category 1",
-    probability: 10,
-    impactId: "I-736789",
-    mitigation: "Mitigation 1",
-    contingency: "Contingency 1",
-    riskScore: 10,
+    category: 1,
+    probability: "25%",
+    impact: 3,
+    mitigation: "Mitigation plan 1",
+    contingency: "Contingency plan 1",
+    riskScore: 3,
     actionBy: new Date(2022, 7, 30),
   },
   {
     uid: "R-736733",
     name: "Risk 2",
-    category: "Category 2",
-    probability: 10,
-    impactId: "I-736733",
-    mitigation: "Mitigation 2",
-    contingency: "Contingency 2",
-    riskScore: 10,
+    category: 3,
+    probability: "10%",
+    impact: 2,
+    mitigation: "Mitigation plan 2",
+    contingency: "Contingency plan 2",
+    riskScore: 1,
     actionBy: new Date(2022, 7, 30),
   },
   {
     uid: "R-732289",
     name: "Risk 3",
     category: "Category 3",
-    probability: 10,
-    impactId: "I-732289",
-    mitigation: "Mitigation 3",
-    contingency: "Contingency 3",
+    probability: "45%",
+    impact: 1,
+    mitigation: "Mitigation plan 3",
+    contingency: "Contingency plan 3",
     riskScore: 10,
     actionBy: new Date(2022, 7, 30),
   },
 ];
+
+const db_risks_impact = ["","High","Medium","Low"];
+const db_risks_category = ["","Schedule","Budget","Scope"];
 
 let db_impacts = [
   {
