@@ -11,7 +11,7 @@ function newIssue() {
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Decision."></textarea>
+            <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Issue."></textarea>
         </div>
         <div class="form-group row">
             <div class="col">
@@ -26,13 +26,13 @@ function newIssue() {
         </div>
         <div class="form-group row">
             <div class="col">
-                <label for="impact">Impact</label>
-                <select class="form-control" id="impact"></select>
+                <label for="severity">Severity</label>
+                <select class="form-control" id="severity"></select>
             </div>
             <div class="col">
-                <label for="impact-add">Add to Impact</label>
-                <input type="text" class="form-control" id="impact-add">
-                <button onclick="addImpact()" type="button" id="add-severity-button" class="btn btn-secondary">Add</button>
+                <label for="severity-add">Add a Severity</label>
+                <input type="text" class="form-control" id="severity-add">
+                <button onclick="addSeverity()" type="button" id="add-severity-button" class="btn btn-secondary">Add</button>
             </div>
         </div>
         <div class="form-group">
@@ -41,7 +41,7 @@ function newIssue() {
         </div>
         <div class="form-group">
             <label for="date-assigned">Date Assigned</label>
-            <input id="date-assigned" class="form-control" type="date">
+            <input id="expected-completion-date" class="form-control" type="date">
         </div>
         <div class="form-group">
             <label for="expected-completion-date">Expected Completion Date</label>
@@ -111,8 +111,8 @@ function loadFormActions(UID, NAME) {
         $("#action-items").append(`<option value=${i}>${uid} : ${name}</option>`);
     }
 
-    for(let i = 0; i < db_decision.length; i++) {
-        let { uid, name } = db_decision[i];
+    for(let i = 0; i < db_decisions.length; i++) {
+        let { uid, name } = db_decisions[i];
         $("#decisions").append(`<option value=${i}>${uid} : ${name}</option>`);
     }
 
@@ -338,7 +338,7 @@ function tabularView() {
     for(let i = 0; i < db_issues.length; i++) {
         let {uid, name, description, priority, severity, status, statusDescription, dateRaised, dateAssigned, expectedCompletionDate, actualCompletionDate, updateDate, actionItem, decision} = db_issues[i];
         let AI = db_actionItems[actionItem];
-        let D = db_decision[decision];
+        let D = db_decisions[decision];
         let row = `
         <tr>
             <th>${uid}</th>

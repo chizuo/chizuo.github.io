@@ -264,6 +264,7 @@ const db_risks_impact = ["","High","Medium","Low"];
 const db_risks_category = ["","Schedule","Budget","Scope"];
 const db_risks_sort = ["","name","Action By"];
 const db_risks_filter = ["","Action By"];
+const db_risks_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
 
 let db_impacts = [
   {
@@ -413,7 +414,7 @@ const db_decisions = [
   {
     uid: "D-732289",
     name: "Decision 3",
-    description: "This is the status description as of the last update",
+    description: "This is the third decision",
     priority: 1,
     impact: 2,
     dateCreated: new Date(2022, 7, 30),
@@ -427,7 +428,8 @@ const db_decisions = [
     updateDate: new Date(2022, 11, 2),
   },
 ];
-
+const db_decisions_sort = ["","name","created on","needed on","decision made on", "expected on", "completed on", "last updated"];
+const db_decisions_filter = ["", "created on","needed on","decision made on", "expected on", "completed on", "last updated"]
 const db_priority = [
   {
     uid: "P-736789",

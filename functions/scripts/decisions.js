@@ -178,6 +178,11 @@ function formatDate(date, month, year) {
     return `${year}-${Month}-${Date}`;
 }
 
+function filterResource(data) {
+  alert(`table contents are now filtered by resource=${data}`);
+  tabularView();
+}
+
 function openDecision() {
     let index = document.getElementById("decisions").value;
     let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, 
@@ -284,93 +289,100 @@ function openDecision() {
 }
 
 function tabularView() {
-    $("#appBody").replaceWith(`
-    <div id="appBody">
-        <form class="container">
-            <div class="row">
-                <div class="col">
-                    <label for="sort">Sort By</label>
-                    <select class="form-control" id="sort"></select>
-                    <div class="btn-group" role="group">
-                        <button id="sort-asc-button" class="btn btn-secondary">ascending</button>
-                        <button id="sort-desc-button" class="btn btn-secondary">descending</button>
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="date-filter">Filter by</label>
-                    <select class="form-control" id="date-filter"></select>
-                    <button id="date-filter-button" class="btn btn-secondary">filter</button>
-                </div>
-                <div class="col">
-                    <label for="date">Date</label>
-                    <input id="date" class="form-control" type="date">
-                </div>
-                <div class="col">
-                    <label for="days">+/-</label>
-                    <input type="text" class="form-control" id="days">
-                </div>
-            </div><br>
-        </form>
-        <table id="tabView" class="table table-striped">
-            <thead>
-                <tr>
-                <th scope="col">uid</th>
-                <th scope="col">name</th>
-                <th scope="col">description</th>
-                <th scope="col">priority</th>
-                <th scope="col">severity</th>
-                <th scope="col">raised</th>
-                <th scope="col">assigned</th>
-                <th scope="col">expected completion</th>
-                <th scope="col">actual completion</th>
-                <th scope="col">status</th>
-                <th scope="col">status description</th>
-                <th scope="col">last updated</th>
-                <th scope="col">action item</th>
-                <th scope="col">decision</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-    `);
+  $("#appBody").replaceWith(`<div id="appBody">
+  <form class="container">
+    <div class="row">
+      <div class="col">
+        <label for="sort">Sort By</label>
+        <select class="form-control" id="sort"></select>
+        <div class="btn-group" role="group">
+          <button id="sort-asc-button" class="btn btn-secondary">ascending</button>
+          <button id="sort-desc-button" class="btn btn-secondary">descending</button>
+        </div>
+      </div>
+      <div class="col">
+        <label for="resource-filter">Resource filter</label>
+        <select class="form-control" id="resource-filter"><option></option></select>
+        <button id="resource-filter-button" class="btn btn-secondary">filter</button>
+      </div>
+      <div class="col">
+        <label for="date-filter">Filter by</label>
+        <select class="form-control" id="date-filter"></select>
+        <button id="date-filter-button" class="btn btn-secondary">filter</button>
+      </div>
+      <div class="col">
+        <label for="date">Date</label>
+        <input id="date" class="form-control" type="date">
+      </div>
+      <div class="col">
+        <label for="days">+/-</label>
+        <input type="text" class="form-control" id="days">
+      </div>
+    </div><br>
+  </form>
 
-    for(let i = 0; i < db_decisions.length; i++) {
-        let {uid, name, description, priority, severity, status, statusDescription, dateRaised, dateCreated, expectedCompletionDate, actualCompletionDate, updateDate, actionItem, decision} = db_decisions[i];
-        let AI = db_actionItems[actionItem];
-        let D = db_decision[decision];
-        let row = `
-        <tr>
-            <th>${uid}</th>
-            <td>${name}</td>
-            <td>${description}</td>
-            <td>${db_issues_priority[priority]}</td>
-            <td>${db_issues_severity[severity]}</td>
-            <td>${dateRaised.toLocaleDateString()}</td>
-            <td>${dateCreated == null ? "not set" : dateCreated.toLocaleDateString()}</td>
-            <td>${expectedCompletionDate == null ? "not set" : expectedCompletionDate.toLocaleDateString()}</td>
-            <td>${actualCompletionDate == null ? "not set" : actualCompletionDate.toLocaleDateString()}</td>
-            <td>${db_issues_status[status]}</td>
-            <td>${statusDescription}</td>
-            <td>${updateDate == null ? "not set" : updateDate.toLocaleDateString()}</td>
-            <td>${AI.uid} : ${AI.name}</td>
-            <td>${D.uid} : ${D.name}</td>
-        </tr>`;
-        $("tbody").append(row);
-    }
+  <table id="tabView" class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">uid</th>
+        <th scope="col">name</th>
+        <th scope="col">description</th>
+        <th scope="col">priority</th>
+        <th scope="col">impact</th>
+        <th scope="col">created on</th>
+        <th scope="col">needed on</th>
+        <th scope="col">decision made on</th>
+        <th scope="col">decision maker</th>
+        <th scope="col">expected on</th>
+        <th scope="col">completed on</th>
+        <th scope="col">status</th>
+        <th scope="col">status description</th>
+        <th scope="col">last updated</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  </div>`);
 
-    for(let i=0; i < db_issues_sort.length; i++) {
-        $("#sort").append(`<option value="${db_issues_sort[i]}"}>${db_issues_sort[i]}</option>`);
-    }
+  for(let i = 0; i < db_decisions.length; i++) {
+    let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, 
+          dateMade, expectedCompletionDate, actualCompletionDate, updateDate, resource } = db_decisions[i];
+ 
+      let row = `<tr>
+        <th>${uid}</th>
+        <td>${name}</td>
+        <td>${description}</td>
+        <td>${db_issues_priority[priority]}</td>
+        <td>${db_risks_impact[impact]}</td>
+        <td>${dateCreated.toLocaleDateString()}</td>
+        <td>${dateNeeded == null ? "not set" : dateNeeded.toLocaleDateString()}</td>
+        <td>${dateMade == null ? "not set" : dateMade.toLocaleDateString()}</td>
+        <td>${db_resources[resource].uid}:${db_resources[resource].name}</td>
+        <td>${expectedCompletionDate == null ? "not set" : expectedCompletionDate.toLocaleDateString()}</td>
+        <td>${actualCompletionDate == null ? "not set" : actualCompletionDate.toLocaleDateString()}</td>
+        <td>${db_issues_status[status]}</td>
+        <td>${statusDescription}</td>
+        <td>${updateDate == null ? "not set" : updateDate.toLocaleDateString()}</td>
+      </tr>`;
+      $("tbody").append(row);
+  }
 
-    for(let i=0; i < db_issues_filter.length; i++) {
-        $("#date-filter").append(`<option value="${db_issues_filter[i]}">${db_issues_filter[i]}</option>`);
-    }
+  for(let i=0; i < db_resources.length; i++) {
+    $("#resource-filter").append(`<option value="${db_resources[i].uid}:${db_resources[i].name}">${db_resources[i].uid}:${db_resources[i].name}</option>`);
+  }
 
+  for(let i=0; i < db_issues_sort.length; i++) {
+    $("#sort").append(`<option value="${db_issues_sort[i]}">${db_issues_sort[i]}</option>`);
+  }
 
-    $("#sort-asc-button").on("click", function(){ sortAsc($("#sort").val()); });
-    $("#sort-desc-button").on("click", function(){ sortDesc($("#sort").val()); });
-    $("#date-filter-button").on("click", function(){ filterDate($("#date-filter").val(), $("#date").val(), $("#days").val()); });
+  for(let i=0; i < db_issues_filter.length; i++) {
+    $("#date-filter").append(`<option value="${db_issues_filter[i]}">${db_issues_filter[i]}</option>`);
+  }
+
+  $("#sort-asc-button").on("click", function(){ sortAsc($("#sort").val()); });
+  $("#sort-desc-button").on("click", function(){ sortDesc($("#sort").val()); });
+  $("#date-filter-button").on("click", function(){ filterDate($("#date-filter").val(), $("#date").val(), $("#days").val()); });
+  $("#resource-filter-button").on("click", function(){ filterResource($("#resource-filter").val()); });
 }
 
 function init() {
