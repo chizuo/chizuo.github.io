@@ -241,7 +241,7 @@ function openRisk() {
 }
 
 function tabularView() {
-    $("#appBody").html(`
+    $("#appBody").replaceWith(`<div id="appBody">
         <form class="container">
             <div class="row">
                 <div class="col">
@@ -284,7 +284,7 @@ function tabularView() {
             </thead>
             <tbody></tbody>
         </table>
-    `);
+    </div>`);
 
     for(let i = 0; i < db_risks.length; i++) {
         let { uid, name, category, probability, impact, mitigation, contingency, riskScore, actionBy, actionItems } = db_risks[i];
