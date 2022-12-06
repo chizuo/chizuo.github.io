@@ -83,7 +83,7 @@ function newActionItem() {
                     <input id="date-assigned" class="form-control" type="date">
                 </div>
                 <div class="form-group">
-                    <label for="action-items">Resource Assigned</label>
+                    <label for="resource">Resource Assigned</label>
                     <select class="form-control" id="resource">
                         <option></option>
                     </select>
@@ -361,11 +361,11 @@ function tabularView() {
     }
 
     for(let i=0; i < db_sortOptions.length; i++) {
-        $("#sort").append(`<option value="${db_sortOptions[i]}") }>${db_sortOptions[i]}</option>`);
+        $("#sort").append(`<option value="${db_sortOptions[i]}">${db_sortOptions[i]}</option>`);
     }
 
     for(let i=0; i < db_resource.length; i++) {
-        $("#resource-filter").append(`<option value="${db_resource[i]}") }>${db_resource[i]}</option>`);
+        $("#resource-filter").append(`<option value="${db_resource[i]}">${db_resource[i]}</option>`);
     }
 
     for(let i=0; i < db_filterOptions.length; i++) {

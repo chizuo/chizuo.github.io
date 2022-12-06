@@ -18,7 +18,7 @@ let db_availibilityCalendar = [
   },
 ];
 
-let db_resources = [
+const db_resources = [
   {
     uid: "RES-736789",
     name: "Jonathan Chua",
@@ -264,6 +264,7 @@ const db_risks_impact = ["","High","Medium","Low"];
 const db_risks_category = ["","Schedule","Budget","Scope"];
 const db_risks_sort = ["","name","Action By"];
 const db_risks_filter = ["","Action By"];
+const db_risks_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
 
 let db_impacts = [
   {
@@ -376,57 +377,59 @@ const db_status = [
   },
 ];
 
-const db_decision = [
+/********** Decisions **********/
+const db_decisions = [
   {
     uid: "D-736789",
     name: "Decision 1",
     description: "This is the first decision",
-    priorityId: ["P-736789", "P-736733", "P-736733"],
-    impactId: ["I-736789", "I-736733", "I-736733"],
-    dateCreated: new Date(2022, 7, 30),
-    dateNeeded: new Date(2022, 7, 30),
-    dateMade: new Date(2022, 7, 30),
-    resource: ["R-736789", "R-736733", "R-736733"],
-    expectedCompletionDate: new Date(2022, 7, 30),
-    actualCompletionDate: new Date(2022, 7, 30),
-    statusId: [1, 2, 3],
-    statusDescription: "This is the status description",
-    updateDate: new Date(2022, 7, 30),
+    priority: 2,
+    impact: 3,
+    dateCreated: new Date(2022, 6, 30),
+    dateNeeded: new Date(2022, 10, 22),
+    dateMade: new Date(2022, 8, 4),
+    resource: 1,
+    expectedCompletionDate: new Date(2022, 10, 22),
+    actualCompletionDate: new Date(2022, 10, 22),
+    status: 2,
+    statusDescription: "This is the status description as of the last update",
+    updateDate: new Date(2022, 9, 14),
   },
   {
     uid: "D-736733",
     name: "Decision 2",
     description: "This is the second decision",
-    priorityId: ["P-736789", "P-736733", "P-736733"],
-    impactId: ["I-736789", "I-736733", "I-736733"],
-    dateCreated: new Date(2022, 7, 30),
-    dateNeeded: new Date(2022, 7, 30),
+    priority: 3,
+    impact: 1,
+    dateCreated: new Date(2022, 6, 22),
+    dateNeeded: new Date(2022, 11, 2),
     dateMade: new Date(2022, 7, 30),
-    resource: ["R-736789", "R-736733", "R-736733"],
-    expectedCompletionDate: new Date(2022, 7, 30),
-    actualCompletionDate: new Date(2022, 7, 30),
-    statusId: [1, 2, 3],
-    statusDescription: "This is the status description",
-    updateDate: new Date(2022, 7, 30),
+    resource: 2,
+    expectedCompletionDate: new Date(2022, 11, 1),
+    actualCompletionDate: null,
+    status: 3,
+    statusDescription: "This is the status description as of the last update",
+    updateDate: new Date(2022, 10, 30),
   },
   {
     uid: "D-732289",
     name: "Decision 3",
     description: "This is the third decision",
-    priorityId: ["P-736789", "P-736733", "P-736733"],
-    impactId: ["I-736789", "I-736733", "I-736733"],
+    priority: 1,
+    impact: 2,
     dateCreated: new Date(2022, 7, 30),
-    dateNeeded: new Date(2022, 7, 30),
-    dateMade: new Date(2022, 7, 30),
-    resource: ["R-736789", "R-736733", "R-736733"],
-    expectedCompletionDate: new Date(2022, 7, 30),
-    actualCompletionDate: new Date(2022, 7, 30),
-    statusId: [1, 2, 3],
-    statusDescription: "This is the status description",
-    updateDate: new Date(2022, 7, 30),
+    dateNeeded: new Date(2022, 11, 2),
+    dateMade: new Date(2022, 9, 3),
+    resource: 3,
+    expectedCompletionDate: new Date(2022, 11, 15),
+    actualCompletionDate: null,
+    status: 4,
+    statusDescription: "Client is making a requirement change affecting this decision",
+    updateDate: new Date(2022, 11, 2),
   },
 ];
-
+const db_decisions_sort = ["","name","created on","needed on","decision made on", "expected on", "completed on", "last updated"];
+const db_decisions_filter = ["", "created on","needed on","decision made on", "expected on", "completed on", "last updated"]
 const db_priority = [
   {
     uid: "P-736789",

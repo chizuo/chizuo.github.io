@@ -111,8 +111,8 @@ function loadFormActions(UID, NAME) {
         $("#action-items").append(`<option value=${i}>${uid} : ${name}</option>`);
     }
 
-    for(let i = 0; i < db_decision.length; i++) {
-        let { uid, name } = db_decision[i];
+    for(let i = 0; i < db_decisions.length; i++) {
+        let { uid, name } = db_decisions[i];
         $("#decisions").append(`<option value=${i}>${uid} : ${name}</option>`);
     }
 
@@ -338,7 +338,7 @@ function tabularView() {
     for(let i = 0; i < db_issues.length; i++) {
         let {uid, name, description, priority, severity, status, statusDescription, dateRaised, dateAssigned, expectedCompletionDate, actualCompletionDate, updateDate, actionItem, decision} = db_issues[i];
         let AI = db_actionItems[actionItem];
-        let D = db_decision[decision];
+        let D = db_decisions[decision];
         let row = `
         <tr>
             <th>${uid}</th>
