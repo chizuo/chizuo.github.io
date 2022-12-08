@@ -209,7 +209,6 @@ function loadFormActions(UID, NAME) {
         if(start.length > 0 && duration.length > 0) {
             let date = new Date(start);
             date.setDate(parseInt(date.getDate()) + parseInt(duration));
-            console.log(formatDate(date));
             $("#expected-end-date").val(formatDate(date));
         }
     });
@@ -220,7 +219,6 @@ function loadFormActions(UID, NAME) {
         if(start.length > 0 && duration.length > 0) {
             let date = new Date(start);
             date.setDate(parseInt(date.getDate()) + parseInt(duration));
-            console.log(formatDate(date));
             $("#actual-end-date").val(formatDate(date));
         }
     });
@@ -245,31 +243,31 @@ function loadFormActions(UID, NAME) {
     });
 }
   
-  function loadTasks() {
-      $("#appBody").replaceWith(`
-          <div id="appBody" class="container">
-              <form>
-                  <div class="form-group">
-                      <label for="tasks">Tasks</label>
-                      <select class="form-control" id="tasks">
-                          <option></option>
-                      </select>
-                  </div>
-                  <input onclick="openTask()" id="open-button" class="btn btn-primary" type="submit" value="Open">
-              </form>
-          </div> 
-      `);
+function loadTasks() {
+    $("#appBody").replaceWith(`
+        <div id="appBody" class="container">
+            <form>
+                <div class="form-group">
+                    <label for="tasks">Tasks</label>
+                    <select class="form-control" id="tasks">
+                        <option></option>
+                    </select>
+                </div>
+                <input onclick="openTask()" id="open-button" class="btn btn-primary" type="submit" value="Open">
+            </form>
+        </div> 
+    `);
+
+    for(let i = 0; i < db_tasks.length; i++) {
+        let { uid, name } = db_tasks[i];
+        $("#tasks").append(`<option value=${i}>${uid} : ${name}</option>`);
+    }
+}
   
-      for(let i = 0; i < db_tasks.length; i++) {
-          let { uid, name } = db_tasks[i];
-          $("#tasks").append(`<option value=${i}>${uid} : ${name}</option>`);
-      }
-  }
-  
-  function sortAsc(data) {
-      alert(`table contents are now sorted by ${data} in ascending order`);
-      tabularView();
-  }
+function sortAsc(data) {
+    alert(`table contents are now sorted by ${data} in ascending order`);
+    tabularView();
+}
   
 function sortDesc(data) {
     alert(`table contents are now sorted by ${data} in descending order`);
@@ -308,11 +306,11 @@ function filterResource(data) {
     tabularView();
 }
   
-  function openTask() {
+function openTask() {
     let index = $("#tasks").val();
     let { uid, name, description, resource, expectedStartDate, expectedEndDate, expectedDuration, predecessor, milestone, expectedEffort, type,
-          issue, actualStartDate, actualEndDate, actualDuration, effortCompleted, actualEffort, percentComplete, successor } = db_tasks[index];
-  
+            issue, actualStartDate, actualEndDate, actualDuration, effortCompleted, actualEffort, percentComplete, successor } = db_tasks[index];
+
     $("#appBody").html(`<form>
         <div class="form-group">
             <label for="uid">Unique I.D.</label>
@@ -432,7 +430,7 @@ function filterResource(data) {
             </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Save" id="save-button">
-        <input class="btn btn-danger" type="reset" value="Clear">
+        <input class="btn btn-danger" type="button" id="delete-button">
     </form>`);
 
     loadFormActions(uid, name);
@@ -460,114 +458,114 @@ function filterResource(data) {
         $("#actual-end-date").val(formatDate(actualEndDate));
     if(actualStartDate !== null & actualEndDate !== null)
         $("#actual-duration").val(duration(actualStartDate, actualEndDate));
-  }
+}
   
-  function tabularView() {
+function tabularView() {
     $("#appBody").replaceWith(`<div id="appBody">
     <form class="container">
-      <div class="row">
+        <div class="row">
         <div class="col">
-          <label for="sort">Sort By</label>
-          <select class="form-control" id="sort"></select>
-          <div class="btn-group" role="group">
+            <label for="sort">Sort By</label>
+            <select class="form-control" id="sort"></select>
+            <div class="btn-group" role="group">
             <button id="sort-asc-button" class="btn btn-secondary">ascending</button>
             <button id="sort-desc-button" class="btn btn-secondary">descending</button>
-          </div>
+            </div>
         </div>
         <div class="col">
-          <label for="resource-filter">Resource filter</label>
-          <select class="form-control" id="resource-filter"><option></option></select>
-          <button id="resource-filter-button" class="btn btn-secondary">filter</button>
+            <label for="resource-filter">Resource filter</label>
+            <select class="form-control" id="resource-filter"><option></option></select>
+            <button id="resource-filter-button" class="btn btn-secondary">filter</button>
         </div>
         <div class="col">
-          <label for="date-filter">Filter by</label>
-          <select class="form-control" id="date-filter"></select>
-          <button id="date-filter-button" class="btn btn-secondary">filter</button>
+            <label for="date-filter">Filter by</label>
+            <select class="form-control" id="date-filter"></select>
+            <button id="date-filter-button" class="btn btn-secondary">filter</button>
         </div>
         <div class="col">
-          <label for="date">Date</label>
-          <input id="date" class="form-control" type="date">
+            <label for="date">Date</label>
+            <input id="date" class="form-control" type="date">
         </div>
         <div class="col">
-          <label for="days">+/-</label>
-          <input type="text" class="form-control" id="days">
+            <label for="days">+/-</label>
+            <input type="text" class="form-control" id="days">
         </div>
-      </div><br>
+        </div><br>
     </form>
-  
+
     <table id="tabView" class="table table-striped">
-      <thead>
+        <thead>
         <tr>
-          <th scope="col">uid</th>
-          <th scope="col">name</th>
-          <th scope="col">description</th>
-          <th scope="col">priority</th>
-          <th scope="col">impact</th>
-          <th scope="col">created on</th>
-          <th scope="col">needed on</th>
-          <th scope="col">decision made on</th>
-          <th scope="col">decision maker</th>
-          <th scope="col">expected on</th>
-          <th scope="col">completed on</th>
-          <th scope="col">status</th>
-          <th scope="col">status description</th>
-          <th scope="col">last updated</th>
+            <th scope="col">uid</th>
+            <th scope="col">name</th>
+            <th scope="col">description</th>
+            <th scope="col">priority</th>
+            <th scope="col">impact</th>
+            <th scope="col">created on</th>
+            <th scope="col">needed on</th>
+            <th scope="col">decision made on</th>
+            <th scope="col">decision maker</th>
+            <th scope="col">expected on</th>
+            <th scope="col">completed on</th>
+            <th scope="col">status</th>
+            <th scope="col">status description</th>
+            <th scope="col">last updated</th>
         </tr>
-      </thead>
-      <tbody></tbody>
+        </thead>
+        <tbody></tbody>
     </table>
     </div>`);
-  
+
     for(let i = 0; i < db_decisions.length; i++) {
-      let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, 
+        let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, 
             dateMade, expectedCompletionDate, actualCompletionDate, updateDate, resource } = db_decisions[i];
-   
+
         let row = `<tr>
-          <th>${uid}</th>
-          <td>${name}</td>
-          <td>${description}</td>
-          <td>${db_issues_priority[priority]}</td>
-          <td>${db_risks_impact[impact]}</td>
-          <td>${dateCreated.toLocaleDateString()}</td>
-          <td>${dateNeeded == null ? "not set" : dateNeeded.toLocaleDateString()}</td>
-          <td>${dateMade == null ? "not set" : dateMade.toLocaleDateString()}</td>
-          <td>${db_resources[resource].uid}:${db_resources[resource].name}</td>
-          <td>${expectedCompletionDate == null ? "not set" : expectedCompletionDate.toLocaleDateString()}</td>
-          <td>${actualCompletionDate == null ? "not set" : actualCompletionDate.toLocaleDateString()}</td>
-          <td>${db_issues_status[status]}</td>
-          <td>${statusDescription}</td>
-          <td>${updateDate == null ? "not set" : updateDate.toLocaleDateString()}</td>
+            <th>${uid}</th>
+            <td>${name}</td>
+            <td>${description}</td>
+            <td>${db_issues_priority[priority]}</td>
+            <td>${db_risks_impact[impact]}</td>
+            <td>${dateCreated.toLocaleDateString()}</td>
+            <td>${dateNeeded == null ? "not set" : dateNeeded.toLocaleDateString()}</td>
+            <td>${dateMade == null ? "not set" : dateMade.toLocaleDateString()}</td>
+            <td>${db_resources[resource].uid}:${db_resources[resource].name}</td>
+            <td>${expectedCompletionDate == null ? "not set" : expectedCompletionDate.toLocaleDateString()}</td>
+            <td>${actualCompletionDate == null ? "not set" : actualCompletionDate.toLocaleDateString()}</td>
+            <td>${db_issues_status[status]}</td>
+            <td>${statusDescription}</td>
+            <td>${updateDate == null ? "not set" : updateDate.toLocaleDateString()}</td>
         </tr>`;
         $("tbody").append(row);
     }
-  
+
     for(let i=0; i < db_resources.length; i++) {
-      $("#resource-filter").append(`<option value="${db_resources[i].uid}:${db_resources[i].name}">${db_resources[i].uid}:${db_resources[i].name}</option>`);
+        $("#resource-filter").append(`<option value="${db_resources[i].uid}:${db_resources[i].name}">${db_resources[i].uid}:${db_resources[i].name}</option>`);
     }
-  
+
     for(let i=0; i < db_issues_sort.length; i++) {
-      $("#sort").append(`<option value="${db_issues_sort[i]}">${db_issues_sort[i]}</option>`);
+        $("#sort").append(`<option value="${db_issues_sort[i]}">${db_issues_sort[i]}</option>`);
     }
-  
+
     for(let i=0; i < db_issues_filter.length; i++) {
-      $("#date-filter").append(`<option value="${db_issues_filter[i]}">${db_issues_filter[i]}</option>`);
+        $("#date-filter").append(`<option value="${db_issues_filter[i]}">${db_issues_filter[i]}</option>`);
     }
-  
+
     $("#sort-asc-button").on("click", function(){ sortAsc($("#sort").val()); });
     $("#sort-desc-button").on("click", function(){ sortDesc($("#sort").val()); });
     $("#date-filter-button").on("click", function(){ filterDate($("#date-filter").val(), $("#date").val(), $("#days").val()); });
     $("#resource-filter-button").on("click", function(){ filterResource($("#resource-filter").val()); });
-  }
+}
   
-  function init() {
-      loadTasks();
-      $("#new-task-button").on("click", newTask);
-      $("#open-tasks-button").on("click", loadTasks);
-      $("#tab-tasks-button").on("click", tabularView);
-      $("#gannt-button").on("click", function() { window.open("./scripts/gannt/gannt.png", "_blank", "width=1160,height=350")});
-      $("#open").on("click", loadTasks);
-      $("#new").on("click", newTask);
-      $("#tab").on("click", tabularView);
-  }
+function init() {
+    loadTasks();
+    $("#new-task-button").on("click", newTask);
+    $("#open-tasks-button").on("click", loadTasks);
+    $("#tab-tasks-button").on("click", tabularView);
+    $("#gannt-button").on("click", function() { window.open("./scripts/gannt/gannt.png", "_blank", "width=1160,height=350")});
+    $("#open").on("click", loadTasks);
+    $("#new").on("click", newTask);
+    $("#tab").on("click", tabularView);
+}
   
-  window.addEventListener("load", init, false);
+window.addEventListener("load", init, false);
