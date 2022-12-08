@@ -189,8 +189,40 @@ function loadFormActions(UID, NAME) {
         }
     });
 
-    $("#status-description").change(function() {
-        $("#update-date").replaceWith(`<input id="update-date" class="form-control" type="text" placeholder="${new Date().toLocaleDateString()}" readonly>`);
+    $("#expected-duration").on("click", function() {
+        let start = $("#expected-start-date").val();
+        let end = $("#expected-end-date").val();
+        if(start.length > 0 && end.length > 0)
+            $("#expected-duration").val(duration(new Date(start), new Date(end)));
+    });
+
+    $("#actual-duration").on("click", function() {
+        let start = $("#actual-start-date").val();
+        let end = $("#actual-end-date").val();
+        if(start.length > 0 && end.length > 0)
+            $("#actual-duration").val(duration(new Date(start), new Date(end)));
+    });
+
+    $("#expected-end-date").on("click", function() {
+        let start = $("#expected-start-date").val();
+        let duration = $("#expected-duration").val();
+        if(start.length > 0 && duration.length > 0) {
+            let date = new Date(start);
+            date.setDate(parseInt(date.getDate()) + parseInt(duration));
+            console.log(formatDate(date));
+            $("#expected-end-date").val(formatDate(date));
+        }
+    });
+
+    $("#actual-end-date").on("click", function() {
+        let start = $("#actual-start-date").val();
+        let duration = $("#actual-duration").val();
+        if(start.length > 0 && duration.length > 0) {
+            let date = new Date(start);
+            date.setDate(parseInt(date.getDate()) + parseInt(duration));
+            console.log(formatDate(date));
+            $("#actual-end-date").val(formatDate(date));
+        }
     });
 
     $("#milestone").change(function() {
@@ -256,8 +288,8 @@ function duration(start, end) {
 
 function formatDate(date) {
     let Year = date.getFullYear();
-    let Month = date.getMonth();
-    let Date = date.getDate();
+    let Month = parseInt(date.getMonth()) + 1;
+    let Date = parseInt(date.getDate()) + 1;
     Month = parseInt(Month) < 10 ? `0${Month}` : Month;
     Date = parseInt(Date) < 10 ? `0${Date}` : Date;
     return `${Year}-${Month}-${Date}`;
