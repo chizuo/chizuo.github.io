@@ -9,12 +9,19 @@ function newTask() {
             <input type="text" class="form-control" id="name">
         </div>
         <div class="form-group">
+            <label for="milestone">Is this task a milestone?</label>
+            <select class="form-control" id="milestone">
+                <option value=0>No</option>
+                <option value=1>Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="description">Description</label>
             <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Task."></textarea>
         </div>
         <div class="form-group">
-            <label for="resources">Resource Assigned</label>
-            <select class="form-control" id="resources">
+            <label for="resource">Resource Assigned</label>
+            <select class="form-control" id="resource">
                 <option></option>
             </select>
             <a id="resources-button" href="./resources.html" class="btn btn-secondary" role="button">Add a resource</a>
@@ -145,7 +152,7 @@ function addIssue() {
 function loadFormActions(UID, NAME) {
     for(let i = 0; i < db_resources.length; i++) {
         let { uid, name } = db_resources[i];
-        $("#resources").append(`<option value="${uid}">${uid} : ${name}</option>`);
+        $("#resource").append(`<option value="${uid}">${uid} : ${name}</option>`);
     }
 
     for(let i = 0; i < 5; i++) {
@@ -185,6 +192,25 @@ function loadFormActions(UID, NAME) {
     $("#status-description").change(function() {
         $("#update-date").replaceWith(`<input id="update-date" class="form-control" type="text" placeholder="${new Date().toLocaleDateString()}" readonly>`);
     });
+
+    $("#milestone").change(function() {
+        let milestone = $("#milestone").val();
+        if(milestone == 0) {
+            $("#expected-start-date").prop("readonly", false);
+            $("#expected-end-date").prop("readonly", false);
+            $("#expected-duration").prop("readonly", false);
+            $("#actual-start-date").prop("readonly", false);
+            $("#actual-end-date").prop("readonly", false);
+            $("#actual-duration").prop("readonly", false);
+        } else {
+            $("#expected-start-date").prop("readonly", true);
+            $("#expected-end-date").prop("readonly", true);
+            $("#expected-duration").prop("readonly", true);
+            $("#actual-start-date").prop("readonly", true);
+            $("#actual-end-date").prop("readonly", true);
+            $("#actual-duration").prop("readonly", true);
+        }
+    });
 }
   
   function loadTasks() {
@@ -204,7 +230,7 @@ function loadFormActions(UID, NAME) {
   
       for(let i = 0; i < db_tasks.length; i++) {
           let { uid, name } = db_tasks[i];
-          $("#tasks").append(`<option value=${uid}>${uid} : ${name}</option>`);
+          $("#tasks").append(`<option value=${i}>${uid} : ${name}</option>`);
       }
   }
   
@@ -213,131 +239,195 @@ function loadFormActions(UID, NAME) {
       tabularView();
   }
   
-  function sortDesc(data) {
-      alert(`table contents are now sorted by ${data} in descending order`);
-      tabularView();
-  }
+function sortDesc(data) {
+    alert(`table contents are now sorted by ${data} in descending order`);
+    tabularView();
+}
   
-  function filterDate(type="", date="", delta="") {
-      let output = delta == "" ? `${type} ${date}` : `${type} ${date} +/- ${delta} days` ;
-      alert(`table contents are now filtered by ${output}`);
-      tabularView();
-  }
+function filterDate(type="", date="", delta="") {
+    let output = delta == "" ? `${type} ${date}` : `${type} ${date} +/- ${delta} days` ;
+    alert(`table contents are now filtered by ${output}`);
+    tabularView();
+}
+
+function duration(start, end) {
+    return Math.floor((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
+}
+
+function formatDate(date) {
+    let Year = date.getFullYear();
+    let Month = date.getMonth();
+    let Date = date.getDate();
+    Month = parseInt(Month) < 10 ? `0${Month}` : Month;
+    Date = parseInt(Date) < 10 ? `0${Date}` : Date;
+    return `${Year}-${Month}-${Date}`;
+}
+
+function formatList(list) {
+    let result = "";
+    for(let i = 0; i < list.length; i++) {
+        result = result.length === 0 ? list[i] : `${result}, ${list[i]}`;
+    }
+    return result;
+}
   
-  function formatDate(date, month, year) {
-      let Month = parseInt(month) < 10 ? `0${month}` : month;
-      let Date = parseInt(date) < 10 ? `0${date}` : date;
-      return `${year}-${Month}-${Date}`;
-  }
-  
-  function filterResource(data) {
+function filterResource(data) {
     alert(`table contents are now filtered by resource=${data}`);
     tabularView();
-  }
+}
   
   function openTask() {
-      let index = document.getElementById("decisions").value;
-      let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, 
-            dateMade, expectedCompletionDate, actualCompletionDate, updateDate, resource } = db_decisions[index];
+    let index = $("#tasks").val();
+    let { uid, name, description, resource, expectedStartDate, expectedEndDate, expectedDuration, predecessor, milestone, expectedEffort, type,
+          issue, actualStartDate, actualEndDate, actualDuration, effortCompleted, actualEffort, percentComplete, successor } = db_tasks[index];
   
-      $("#appBody").html(`<form>
+    $("#appBody").html(`<form>
         <div class="form-group">
-          <label for="uid">Unique I.D.</label>
-          <input id="uid" class="form-control" type="text" placeholder="${uid}" readonly>
+            <label for="uid">Unique I.D.</label>
+            <input id="uid" class="form-control" type="text" placeholder="${uid}" readonly>
         </div>
         <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name">
         </div>
         <div class="form-group">
-          <label for="description">Description</label>
-          <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Task."></textarea>
+            <label for="milestone">Is this task a milestone?</label>
+            <select class="form-control" id="milestone">
+                <option value=0>No</option>
+                <option value=1>Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Task."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="resource">Resource Assigned</label>
+            <select class="form-control" id="resource">
+                <option></option>
+            </select>
+            <a id="resources-button" href="./resources.html" class="btn btn-secondary" role="button">Add a resource</a>
+        </div>
+        <div class="form-group">
+            <label for="expected-start-date">Expected Start Date</label>
+            <input id="expected-start-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="expected-end-date">Expected End Date</label>
+            <input id="expected-end-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="expected-duration">Expected Duration</label>
+            <input type="number" class="form-control" id="expected-duration" min="0">
+        </div>
+        <div class="form-group">
+            <label for="expected-effort">Expected Effort</label>
+            <input type="number" class="form-control" id="expected-effort" min="0">
+        </div>
+        <div class="form-group">
+            <label for="actual-start-date">Actual Start Date</label>
+            <input id="actual-start-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="actual-end-date">Actual End Date</label>
+            <input id="actual-end-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="actual-duration">Actual Duration</label>
+            <input type="number" class="form-control" id="actual-duration" min="0">
+        </div>
+        <div class="form-group">
+            <label for="effort-completed">Effort Completed</label>
+            <input type="number" class="form-control" id="effort-completed" min="0">
+        </div>
+        <div class="form-group">
+            <label for="actual-effort">Actual Effort</label>
+            <input type="number" class="form-control" id="actual-effort" min="0">
+        </div>
+        <div class="form-group">
+            <label for="percent">Percent Complete</label>
+            <input type="number" class="form-control" id="percent" min="0" max="100">
         </div>
         <div class="form-group row">
-          <div class="col">
-            <label for="priority">Priority</label>
-            <select class="form-control" id="priority"></select>
-          </div>
-          <div class="col">
-            <label for="priority-add">Add to Priority</label>
-            <input type="text" class="form-control" id="priority-add">
-            <button onclick="addPriority()" id="add-priority-button" type="button" class="btn btn-secondary">Add</button>
-          </div>
+            <div class="col">
+                <label for="predecessor-list">List of Predecessor Tasks</label>
+                <select class="form-control" id="predecessor-list"><option></option></select>
+                <button onclick="addPredecessor()" id="add-predecessor-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="col">
+                <label for="predecessor">Predecessor Tasks</label>
+                <input type="text" class="form-control" id="predecessor" placeholder="" readonly>
+            </div>
         </div>
         <div class="form-group row">
-          <div class="col">
-            <label for="impact">Impact</label>
-            <select class="form-control" id="impact"></select>
-          </div>
-          <div class="col">
-            <label for="impact-add">Add to Impact</label>
-            <input type="text" class="form-control" id="impact-add">
-            <button onclick="addImpact()" type="button" id="add-impact-button" class="btn btn-secondary">Add</button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="date-created">Date Created</label>
-          <input id="date-created" class="form-control" type="text" value="${dateCreated.toLocaleDateString()}" readonly>
-        </div>
-        <div class="form-group">
-          <label for="date-needed">Date Needed</label>
-          <input id="date-needed" class="form-control" type="date">
-        </div>
-        <div class="form-group">
-          <label for="date-made">Date Made</label>
-          <input id="date-made" class="form-control" type="date">
-        </div>
-        <div class="form-group">
-          <label for="resources">Task Maker</label>
-          <select class="form-control" id="resources"></select>
-          <a id="resources-button" href="./resources.html" class="btn btn-secondary" role="button">Add a resource</a>
-        </div>
-        <div class="form-group">
-          <label for="expected-completion-date">Expected Completion Date</label>
-          <input id="expected-completion-date" class="form-control" type="date">
-        </div>
-        <div class="form-group">
-          <label for="actual-completion-date">Actual Completion Date</label>
-          <input id="actual-completion-date" class="form-control" type="date">
+            <div class="col">
+                <label for="successor-list">List of Successor Tasks</label>
+                <select class="form-control" id="successor-list"><option></option></select>
+                <button onclick="addSuccessor()" id="add-successor-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="col">
+                <label for="successor">Successor Tasks</label>
+                <input type="text" class="form-control" id="successor" placeholder="" readonly>
+            </div>
         </div>
         <div class="form-group row">
-          <div class="col">
-            <label for="status">Status</label>
-            <select class="form-control" id="status"></select>
-          </div>
-          <div class="col">
-            <label for="status-add">Add to Status</label>
-            <input class="form-control" type="text" id="status-add">
-            <button onclick="addStatus()" id="add-status-button" type="button" class="btn btn-secondary">Add</button>
-          </div>
+            <div class="col">
+                <label for="issue-list">List of Issues</label>
+                <select class="form-control" id="issue-list"><option></option></select>
+                <button onclick="addIssue()" id="add-issue-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="col">
+                <label for="issue">Issues</label>
+                <input type="text" class="form-control" id="issue" placeholder="" readonly>
+            </div>
         </div>
         <div class="form-group">
-          <label for="status-description">Status Description</label>
-          <textarea class="form-control" id="status-description" rows="3" placeholder="A short description of the Task's status as of the last update."></textarea>
+            <label for="task-type">Task Type</label>
+            <select class="form-control" id="task-type">
+                <option value="regular">Regular</option>
+                <option value="summary">Summary</option> 
+            </select>
         </div>
-        <div class="form-group">
-          <label for="update-date">Update Date</label>
-          <input id="update-date" class="form-control" type="text" placeholder="${updateDate.toLocaleDateString()}" readonly>
+        <div class="form-group row">
+            <div class="col">
+                <label for="group">Group Identifier</label>
+                <select class="form-control" id="group"><option></option></select>
+            </div>
+            <div class="col">
+                <label for="group-add">Add New Group Identifier</label>
+                <input id="group-add" class="form-control" type="text" placeholder="GROUP-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
+                <button onclick="addGroup()" id="add-group-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Save" id="save-button">
-        <input class="btn btn-danger" type="button" value="Delete" id="delete-button">        
-      </form>`);
-      loadFormActions(uid, name);
-      $("#name").val(name);
-      $("#description").val(description);
-      $("#priority").val(db_issues_priority[priority]);
-      $("#impact").val(db_risks_impact[impact]);
-      $("#status").val(`${db_issues_status[status]}`);
-      $("#resources").val(`${db_resources[resource].uid}:${db_resources[resource].name}`)
-      $("#status-description").val(statusDescription);
-      if(dateNeeded !== null)
-        $("#date-needed").val(formatDate(dateNeeded.getDate(), dateNeeded.getMonth(), dateNeeded.getFullYear()));
-      if(dateMade !== null)
-        $("#date-made").val(formatDate(dateMade.getDate(), dateMade.getMonth(), dateMade.getFullYear()));
-      if(expectedCompletionDate !== null)
-        $("#expected-completion-date").val(formatDate(expectedCompletionDate.getDate(),expectedCompletionDate.getMonth(),expectedCompletionDate.getFullYear()));
-      if(actualCompletionDate !== null)
-        $("#actual-completion-date").val(formatDate(actualCompletionDate.getDate(),actualCompletionDate.getMonth(),actualCompletionDate.getFullYear()));
+        <input class="btn btn-danger" type="reset" value="Clear">
+    </form>`);
+
+    loadFormActions(uid, name);
+    $("#name").val(name);
+    $("#description").val(description);
+    $("#milestone").val(milestone);
+    $("#resource").val(resource);
+    $("#expected-effort").val(expectedEffort);
+    $("#actual-effort").val(actualEffort);
+    $("#predecessor").attr("placeholder",formatList(predecessor));
+    $("#successor").attr("placeholder",formatList(successor));
+    $("#issue").attr("placeholder",formatList(issue));
+    $("#effort-completed").val(effortCompleted);
+    $("#task-type").val(type);
+    $("#percent").val(percentComplete);
+    if(expectedStartDate !== null)
+        $("#expected-start-date").val(formatDate(expectedStartDate));     
+    if(expectedEndDate !== null)
+        $("#expected-end-date").val(formatDate(expectedEndDate));
+    if(expectedStartDate !== null & expectedEndDate !== null)
+        $("#expected-duration").val(duration(expectedStartDate, expectedEndDate));
+    if(actualStartDate !== null)
+        $("#actual-start-date").val(formatDate(actualStartDate));     
+    if(actualEndDate !== null)
+        $("#actual-end-date").val(formatDate(actualEndDate));
+    if(actualStartDate !== null & actualEndDate !== null)
+        $("#actual-duration").val(duration(actualStartDate, actualEndDate));
   }
   
   function tabularView() {

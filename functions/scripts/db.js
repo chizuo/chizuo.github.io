@@ -163,62 +163,74 @@ let db_requirements = [
   },
 ];
 
-let db_tasks = [
+const db_tasks = [
   {
     uid: "T-736789",
     name: "Task 1",
+    milestone: 0,
     description: "This is the first task",
     resource: "RES-736789",
     expectedStartDate: new Date(2022, 7, 30),
-    expectedEndDate: new Date(2022, 7, 30),
-    expectedDuration: 10,
+    expectedEndDate: new Date(2022, 8, 30),
+    expectedDuration: 31,
     expectedEffort: 10,
-    actualStartDate: new Date(2022, 7, 30),
-    actualEndDate: new Date(2022, 7, 30),
-    actualDuration: 10,
-    effortCompleted: 10,
-    actualEffort: 10,
-    percentComplete: 10,
-    milestone: new Date(2022, 7, 30),
-    taskParentId: "T-736789",
+    actualStartDate: new Date(2022, 7, 31),
+    actualEndDate: new Date(2022, 9, 15),
+    actualDuration: 31,
+    effortCompleted: 20,
+    actualEffort: 12,
+    percentComplete: 100,
+    issue: ["I-736733"],
+    type: "regular",
+    predecessor: ["T-936713"],
+    successor: ["T-115721"]
   },
   {
     uid: "T-736733",
     name: "Task 2",
+    milestone: 0,
     description: "This is the second task",
     resource: "RES-736778",
-    expectedStartDate: new Date(2022, 7, 30),
-    expectedEndDate: new Date(2022, 7, 30),
+    expectedStartDate: new Date(2022, 9, 10),
+    expectedEndDate: new Date(2022, 11, 11),
     expectedDuration: 10,
     expectedEffort: 10,
-    actualStartDate: new Date(2022, 7, 30),
-    actualEndDate: new Date(2022, 7, 30),
+    actualStartDate: new Date(2022, 9, 30),
+    actualEndDate: new Date(2022, 11, 15),
     actualDuration: 10,
-    effortCompleted: 10,
-    actualEffort: 10,
-    percentComplete: 10,
-    milestone: new Date(2022, 7, 30),
-    taskParentId: "T-736733",
+    effortCompleted: 25,
+    actualEffort: 13,
+    percentComplete: 75,
+    issue: ["I-732289"],
+    type:"regular",
+    predecessor: ["T-736733"],
+    successor: ["T-396280"]
   },
   {
     uid: "T-732289",
     name: "Task 3",
+    milestone: 0,
     description: "This is the third task",
     resource: "RES-709789", 
-    expectedStartDate: new Date(2022, 7, 30),
-    expectedEndDate: new Date(2022, 7, 30),
+    expectedStartDate: new Date(2022, 8, 15),
+    expectedEndDate: new Date(2022, 11, 15),
     expectedDuration: 10,
-    expectedEffort: 10,
-    actualStartDate: new Date(2022, 7, 30),
-    actualEndDate: new Date(2022, 7, 30),
+    expectedEffort: 22,
+    actualStartDate: new Date(2022, 8, 15),
+    actualEndDate: new Date(2022, 11, 1),
     actualDuration: 10,
-    effortCompleted: 10,
-    actualEffort: 10,
-    percentComplete: 10,
-    milestone: new Date(2022, 7, 30),
-    taskParentId: "T-732289",
+    effortCompleted: 33,
+    actualEffort: 22,
+    percentComplete: 88,
+    issue: ["I-736789"],
+    type: "regular",
+    predecessor: ["T-736789"],
+    successor: ["T-923451","T-442945"]
   },
 ];
+
+const db_predecessor = [{uid:"T-736789",name:"Task-736789"}, {uid:"T-736733",name:"Task-736733"}, {uid:"T-936713",name:"Task-936713"}];
+const db_successor = [{uid:"T-923451",name:"Task-923451"},{uid:"T-442945",name:"Task-442945"}, {uid:"T-396280",name:"Task-442945"}, {uid:"T-115721",name:"Task-115721"}];
 
 /******** Risks ********/
 const db_risks = [
@@ -343,9 +355,6 @@ const db_actionItems = [
     updateDate: new Date(2022, 9, 12),
   },
 ];
-
-const db_predecessor = [{uid:"T-736789",name:"Task-736789"}, {uid:"T-736733",name:"Task-736733"}, {uid:"T-936713",name:"Task-936713"}];
-const db_successor = [{uid:"T-923451",name:"Task-923451"},{uid:"T-442945",name:"Task-442945"}, {uid:"T-396280",name:"Task-442945"}, {uid:"T-115721",name:"Task-115721"}];
 
 const db_status = [
   {
