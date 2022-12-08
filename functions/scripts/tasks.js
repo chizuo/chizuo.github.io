@@ -532,6 +532,7 @@ function filterResource(data) {
       $("#new-task-button").on("click", newTask);
       $("#open-tasks-button").on("click", loadTasks);
       $("#tab-tasks-button").on("click", tabularView);
+      $("#gannt-button").on("click", function() { window.open("./scripts/gannt/gannt.jpg", "width=1200", "height=350")});
       $("#open").on("click", loadTasks);
       $("#new").on("click", newTask);
       $("#tab").on("click", tabularView);
