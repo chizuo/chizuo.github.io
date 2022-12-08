@@ -168,7 +168,7 @@ let db_tasks = [
     uid: "T-736789",
     name: "Task 1",
     description: "This is the first task",
-    resourcewAssigned: [], // array of resource id
+    resource: "RES-736789",
     expectedStartDate: new Date(2022, 7, 30),
     expectedEndDate: new Date(2022, 7, 30),
     expectedDuration: 10,
@@ -186,7 +186,7 @@ let db_tasks = [
     uid: "T-736733",
     name: "Task 2",
     description: "This is the second task",
-    resourcewAssigned: [], // array of resource id
+    resource: "RES-736778",
     expectedStartDate: new Date(2022, 7, 30),
     expectedEndDate: new Date(2022, 7, 30),
     expectedDuration: 10,
@@ -204,7 +204,7 @@ let db_tasks = [
     uid: "T-732289",
     name: "Task 3",
     description: "This is the third task",
-    resourcewAssigned: [], // array of resource id
+    resource: "RES-709789", 
     expectedStartDate: new Date(2022, 7, 30),
     expectedEndDate: new Date(2022, 7, 30),
     expectedDuration: 10,
@@ -264,7 +264,7 @@ const db_risks_impact = ["","High","Medium","Low"];
 const db_risks_category = ["","Schedule","Budget","Scope"];
 const db_risks_sort = ["","name","Action By"];
 const db_risks_filter = ["","Action By"];
-const db_risks_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
+const db_risks_resource = ["", "R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
 
 let db_impacts = [
   {
@@ -344,23 +344,8 @@ const db_actionItems = [
   },
 ];
 
-const db_predecessor_successorTasks = [
-  {
-    uid: "PST-736789",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-  {
-    uid: "PST-736733",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-  {
-    uid: "PST-732289",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-];
+const db_predecessor = [{uid:"T-736789",name:"Task-736789"}, {uid:"T-736733",name:"Task-736733"}, {uid:"T-936713",name:"Task-936713"}];
+const db_successor = [{uid:"T-923451",name:"Task-923451"},{uid:"T-442945",name:"Task-442945"}, {uid:"T-396280",name:"Task-442945"}, {uid:"T-115721",name:"Task-115721"}];
 
 const db_status = [
   {

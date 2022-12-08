@@ -1,147 +1,199 @@
 function newTask() {
     $("#appBody").html(`<form>
-      <div class="form-group">
-        <label for="uid">Unique I.D.</label>
-        <input id="uid" class="form-control" type="text" placeholder="T-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
-      </div>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name">
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Task."></textarea>
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <label for="priority">Priority</label>
-          <select class="form-control" id="priority"></select>
+        <div class="form-group">
+            <label for="uid">Unique I.D.</label>
+            <input id="uid" class="form-control" type="text" placeholder="T-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
         </div>
-        <div class="col">
-          <label for="priority-add">Add to Priority</label>
-          <input type="text" class="form-control" id="priority-add">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name">
         </div>
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <label for="impact">Impact</label>
-          <select class="form-control" id="impact"></select>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="A short description of the Task."></textarea>
         </div>
-        <div class="col">
-          <label for="impact-add">Add to Impact</label>
-          <input type="text" class="form-control" id="impact-add">
-          <button onclick="addImpact()" type="button" id="add-impact-button" class="btn btn-secondary">Add</button>
+        <div class="form-group">
+            <label for="resources">Resource Assigned</label>
+            <select class="form-control" id="resources">
+                <option></option>
+            </select>
+            <a id="resources-button" href="./resources.html" class="btn btn-secondary" role="button">Add a resource</a>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="date-created">Date Created</label>
-        <input id="date-created" class="form-control" type="text" value="${new Date().toLocaleDateString()}" readonly>
-      </div>
-      <div class="form-group">
-        <label for="date-needed">Date Needed</label>
-        <input id="date-needed" class="form-control" type="date">
-      </div>
-      <div class="form-group">
-        <label for="date-made">Date Made</label>
-        <input id="date-made" class="form-control" type="date">
-      </div>
-      <div class="form-group">
-        <label for="resources">Task Maker</label>
-        <select class="form-control" id="resources"><option></option></select>
-        <a id="resources-button" href="./resources.html" class="btn btn-secondary" role="button">Add a resource</a>
-      </div>
-      <div class="form-group">
-        <label for="expected-completion-date">Expected Completion Date</label>
-        <input id="expected-completion-date" class="form-control" type="date">
-      </div>
-      <div class="form-group">
-        <label for="actual-completion-date">Actual Completion Date</label>
-        <input id="actual-completion-date" class="form-control" type="date">
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <label for="status">Status</label>
-          <select class="form-control" id="status"></select>
+        <div class="form-group">
+            <label for="expected-start-date">Expected Start Date</label>
+            <input id="expected-start-date" class="form-control" type="date">
         </div>
-        <div class="col">
-          <label for="status-add">Add to Status</label>
-          <input class="form-control" type="text" id="status-add">
-          <button onclick="addStatus()" id="add-status-button" type="button" class="btn btn-secondary">Add</button>
+        <div class="form-group">
+            <label for="expected-end-date">Expected End Date</label>
+            <input id="expected-end-date" class="form-control" type="date">
         </div>
-      </div>
-      <div class="form-group">
-        <label for="status-description">Status Description</label>
-        <textarea class="form-control" id="status-description" rows="3" placeholder="A short description of the Task's status as of the last update."></textarea>
-      </div>
-      <div class="form-group">
-        <label for="update-date">Update Date</label>
-        <input id="update-date" class="form-control" type="text" placeholder="" readonly>
-      </div>
-      <input class="btn btn-primary" type="submit" value="Save" id="save-button">
-      <input class="btn btn-danger" type="reset" value="Clear">
+        <div class="form-group">
+            <label for="expected-duration">Expected Duration</label>
+            <input type="number" class="form-control" id="expected-duration" min="0">
+        </div>
+        <div class="form-group">
+            <label for="expected-effort">Expected Effort</label>
+            <input type="number" class="form-control" id="expected-effort" min="0">
+        </div>
+        <div class="form-group">
+            <label for="actual-start-date">Actual Start Date</label>
+            <input id="actual-start-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="actual-end-date">Actual End Date</label>
+            <input id="actual-end-date" class="form-control" type="date">
+        </div>
+        <div class="form-group">
+            <label for="actual-duration">Actual Duration</label>
+            <input type="number" class="form-control" id="actual-duration" min="0">
+        </div>
+        <div class="form-group">
+            <label for="effort-completed">Effort Completed</label>
+            <input type="number" class="form-control" id="effort-completed" min="0">
+        </div>
+        <div class="form-group">
+            <label for="actual-effort">Actual Effort</label>
+            <input type="number" class="form-control" id="actual-effort" min="0">
+        </div>
+        <div class="form-group">
+            <label for="percent">Percent Complete</label>
+            <input type="number" class="form-control" id="percent" min="0" max="100">
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="predecessor-list">List of Predecessor Tasks</label>
+                <select class="form-control" id="predecessor-list"><option></option></select>
+                <button onclick="addPredecessor()" id="add-predecessor-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="col">
+                <label for="predecessor">Predecessor Tasks</label>
+                <input type="text" class="form-control" id="predecessor" placeholder="" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="successor-list">List of Successor Tasks</label>
+                <select class="form-control" id="successor-list"><option></option></select>
+                <button onclick="addSuccessor()" id="add-successor-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="col">
+                <label for="successor">Successor Tasks</label>
+                <input type="text" class="form-control" id="successor" placeholder="" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="issue-list">List of Issues</label>
+                <select class="form-control" id="issue-list"><option></option></select>
+                <button onclick="addIssue()" id="add-issue-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+            <div class="col">
+                <label for="issue">Issues</label>
+                <input type="text" class="form-control" id="issue" placeholder="" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="task-type">Task Type</label>
+            <select class="form-control" id="task-type">
+                <option value="regular">Regular</option>
+                <option value="summary">Summary</option> 
+            </select>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="group">Group Identifier</label>
+                <select class="form-control" id="group"><option></option></select>
+            </div>
+            <div class="col">
+                <label for="group-add">Add New Group Identifier</label>
+                <input id="group-add" class="form-control" type="text" placeholder="GROUP-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
+                <button onclick="addGroup()" id="add-group-button" type="button" class="btn btn-secondary">Add</button>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save" id="save-button">
+        <input class="btn btn-danger" type="reset" value="Clear">
     </form>`);
     loadFormActions("","");
-  }
+}
   
-  function addPriority() {
-    $("#priority").append(`<option value=${$("#priority-add").val()}>${$("#priority-add").val()}</option>`);
-    $("#priority-add").val("");
-  }
+function addGroup() {
+    $("#group").append(`<option value=${$("#group-add").attr("placeholder")}>${$("#group-add").attr("placeholder")}</option>`);
+    $("#group-add").attr("placeholder",`GROUP-${(Math.floor(Math.random() * 9999998) + 1000000)}`);
+}
+
+function addPredecessor() {
+    let predecessor = $("#predecessor").attr("placeholder");
+    let input = $("#predecessor-list").val();
+    predecessor = predecessor.length === 0 ? input : `${predecessor}, ${input}`;
+    $("#predecessor").attr("placeholder", predecessor);
+}
+
+function addSuccessor() {
+    let successor = $("#successor").attr("placeholder");
+    let input = $("#successor-list").val();
+    successor = successor.length === 0 ? input : `${successor}, ${input}`;
+    $("#successor").attr("placeholder", successor);
+}
+
+function addIssue() {
+    let issue = $("#issue").attr("placeholder");
+    let input = $("#issue-list").val();
+    issue = issue.length === 0 ? input : `${issue}, ${input}`;
+    $("#issue").attr("placeholder", issue);
+}
   
-  function addImpact() {
-    $("#impact").append(`<option value=${$("#impact-add").val()}>${$("#impact-add").val()}</option>`);
-    $("#impact-add").val("");
-  }
-  
-  function addStatus() {
-    $("#status").append(`<option value=${$("#status-add").val()}>${$("#status-add").val()}</option>`);
-    $("#status-add").val("");
-  }
-  
-  function loadFormActions(UID, NAME) {
-    for(let i = 0; i < db_issues_status.length; i++) {
-      $("#status").append(`<option value='${db_issues_status[i]}'>${db_issues_status[i]}</option>`);
-    }
-  
-    for(let i = 0; i < db_risks_impact.length; i++) {
-      $("#impact").append(`<option value=${db_risks_impact[i]}>${db_risks_impact[i]}</option>`);
-    }
-  
-    for(let i = 0; i < db_issues_priority.length; i++) {
-      $("#priority").append(`<option value=${db_issues_priority[i]}>${db_issues_priority[i]}</option>`);
-    }
-  
+function loadFormActions(UID, NAME) {
     for(let i = 0; i < db_resources.length; i++) {
-      let { uid, name } = db_resources[i];
-      $("#resources").append(`<option value="${uid}:${name}">${uid} : ${name}</option>`);
+        let { uid, name } = db_resources[i];
+        $("#resources").append(`<option value="${uid}">${uid} : ${name}</option>`);
     }
-  
+
+    for(let i = 0; i < 5; i++) {
+        let group = `GROUP-${(Math.floor(Math.random() * 9999998) + 1000000)}`
+        $("#group").append(`<option value="${group}">${group}</group>`);
+    }
+
+    for(let i = 0; i < db_issues.length; i++) {
+        let { uid, name } = db_issues[i];
+        $("#issue-list").append(`<option value="${uid}">${uid} : ${name}</option>`);
+    }
+
+    for(let i = 0; i < db_predecessor.length; i++) {
+        let { uid, name } = db_predecessor[i];
+        $("#predecessor-list").append(`<option value=${uid}>${uid} : ${name}</option>`)
+    }
+
+    for(let i = 0; i < db_successor.length; i++) {
+        let { uid, name } = db_successor[i];
+        $("#successor-list").append(`<option value=${uid}>${uid} : ${name}</option>`)
+    }
+
     $("#save-button").on("click", function() {
-      alert("entry saved");
-      location.reload();
+        alert("entry saved");
+        location.reload();
     });
-  
+
     $("#delete-button").on("click", function(){
-      if(confirm(`Confirm deletion of ${UID} : ${NAME}`) === true) {
-          alert(`${UID} : ${NAME} has been deleted`);
-          location.reload();
-      } else {
-          alert(`Delete request of ${UID} : ${NAME} been cancelled`);
-      }
+        if(confirm(`Confirm deletion of ${UID} : ${NAME}`) === true) {
+            alert(`${UID} : ${NAME} has been deleted`);
+            location.reload();
+        } else {
+            alert(`Delete request of ${UID} : ${NAME} been cancelled`);
+        }
     });
-  
+
     $("#status-description").change(function() {
         $("#update-date").replaceWith(`<input id="update-date" class="form-control" type="text" placeholder="${new Date().toLocaleDateString()}" readonly>`);
     });
-  }
+}
   
   function loadTasks() {
       $("#appBody").replaceWith(`
           <div id="appBody" class="container">
               <form>
                   <div class="form-group">
-                      <label for="decisions">Tasks</label>
-                      <select class="form-control" id="decisions">
+                      <label for="tasks">Tasks</label>
+                      <select class="form-control" id="tasks">
                           <option></option>
                       </select>
                   </div>
@@ -150,9 +202,9 @@ function newTask() {
           </div> 
       `);
   
-      for(let i = 0; i < db_decisions.length; i++) {
-          let { uid, name } = db_decisions[i];
-          $("#decisions").append(`<option value=${i}>${uid} : ${name}</option>`);
+      for(let i = 0; i < db_tasks.length; i++) {
+          let { uid, name } = db_tasks[i];
+          $("#tasks").append(`<option value=${uid}>${uid} : ${name}</option>`);
       }
   }
   
@@ -387,9 +439,9 @@ function newTask() {
   
   function init() {
       loadTasks();
-      $("#new-decision-button").on("click", newTask);
-      $("#open-decisions-button").on("click", loadTasks);
-      $("#tab-decisions-button").on("click", tabularView);
+      $("#new-task-button").on("click", newTask);
+      $("#open-tasks-button").on("click", loadTasks);
+      $("#tab-tasks-button").on("click", tabularView);
       $("#open").on("click", loadTasks);
       $("#new").on("click", newTask);
       $("#tab").on("click", tabularView);
