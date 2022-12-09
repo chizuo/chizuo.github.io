@@ -170,10 +170,11 @@ const db_tasks = [
     milestone: 0,
     description: "This is the first task",
     resource: "RES-736789",
+    resourceID: 0,
     expectedStartDate: new Date(2022, 7, 30),
     expectedEndDate: new Date(2022, 8, 30),
     expectedDuration: 31,
-    expectedEffort: 10,
+    expectedEffort: 6,
     actualStartDate: new Date(2022, 7, 31),
     actualEndDate: new Date(2022, 9, 15),
     actualDuration: 31,
@@ -182,6 +183,8 @@ const db_tasks = [
     percentComplete: 100,
     issue: ["I-736733"],
     type: "regular",
+    group: 2,
+    subtask: ["T-336733"],
     predecessor: ["T-936713"],
     successor: ["T-115721"]
   },
@@ -191,10 +194,11 @@ const db_tasks = [
     milestone: 0,
     description: "This is the second task",
     resource: "RES-736778",
+    resourceID: 3,
     expectedStartDate: new Date(2022, 9, 10),
     expectedEndDate: new Date(2022, 11, 11),
     expectedDuration: 10,
-    expectedEffort: 10,
+    expectedEffort: 12,
     actualStartDate: new Date(2022, 9, 30),
     actualEndDate: new Date(2022, 11, 15),
     actualDuration: 10,
@@ -203,6 +207,8 @@ const db_tasks = [
     percentComplete: 75,
     issue: ["I-732289"],
     type:"regular",
+    group: 1,
+    subtask: ["T-136789"],
     predecessor: ["T-736733"],
     successor: ["T-396280"]
   },
@@ -212,6 +218,7 @@ const db_tasks = [
     milestone: 0,
     description: "This is the third task",
     resource: "RES-709789", 
+    resourceID: 4,
     expectedStartDate: new Date(2022, 8, 15),
     expectedEndDate: new Date(2022, 11, 15),
     expectedDuration: 10,
@@ -224,13 +231,18 @@ const db_tasks = [
     percentComplete: 88,
     issue: ["I-736789"],
     type: "regular",
+    group: 1,
+    subtask: ["T-236713"],
     predecessor: ["T-736789"],
     successor: ["T-923451","T-442945"]
   },
 ];
 
+const db_tasks_sort = ["", "name", "expected start", "expected end", "actual start", "actual end"];
+const db_tasks_filter = ["", "expected start", "expected end", "actual start", "actual end"];
 const db_predecessor = [{uid:"T-736789",name:"Task-736789"}, {uid:"T-736733",name:"Task-736733"}, {uid:"T-936713",name:"Task-936713"}];
 const db_successor = [{uid:"T-923451",name:"Task-923451"},{uid:"T-442945",name:"Task-442945"}, {uid:"T-396280",name:"Task-442945"}, {uid:"T-115721",name:"Task-115721"}];
+const db_subtask = [{uid:"T-136789",name:"Task-136789"}, {uid:"T-336733",name:"Task-336733"}, {uid:"T-236713",name:"Task-236713"}];
 
 /******** Risks ********/
 const db_risks = [
