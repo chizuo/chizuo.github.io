@@ -1,5 +1,5 @@
 function newDecision() {
-  $("#appBody").html(`<form>
+  $("#appBody").replaceWith(`<div id="appBody" class="container"><form>
     <div class="form-group">
       <label for="uid">Unique I.D.</label>
       <input id="uid" class="form-control" type="text" placeholder="D-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
@@ -59,6 +59,21 @@ function newDecision() {
       <input id="actual-completion-date" class="form-control" type="date">
     </div>
     <div class="form-group row">
+        <div class="col">
+            <label for="note-list">List of Meeting Notes</label>
+            <select class="form-control" id="note-list"><option></option></select>
+            <button onclick="addNote()" id="add-note-button" type="button" class="btn btn-secondary">Add</button>
+        </div>
+        <div class="col">
+            <label for="note">Meeting Notes</label>
+            <input type="text" class="form-control" id="note" placeholder="" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="note-date">Note Date</label>
+      <input id="note-date" class="form-control" type="text" placeholder="" readonly>
+    </div>
+    <div class="form-group row">
       <div class="col">
         <label for="status">Status</label>
         <select class="form-control" id="status"></select>
@@ -79,8 +94,16 @@ function newDecision() {
     </div>
     <input class="btn btn-primary" type="submit" value="Save" id="save-button">
     <input class="btn btn-danger" type="reset" value="Clear">
-  </form>`);
+  </form></div>`);
   loadFormActions("","");
+}
+
+function addNote() {
+  let note = $("#note").attr("placeholder");
+  let input = $("#note-list").val();
+  note = note.length === 0 ? input : `${note}, ${input}`;
+  $("#note").attr("placeholder", note);
+  $("#note-date").attr("placeholder", new Date().toLocaleDateString());
 }
 
 function addPriority() {
@@ -114,6 +137,12 @@ function loadFormActions(UID, NAME) {
   for(let i = 0; i < db_resources.length; i++) {
     let { uid, name } = db_resources[i];
     $("#resources").append(`<option value="${uid}:${name}">${uid} : ${name}</option>`);
+  }
+
+  for(let i = 0; i < 5; i++) {
+    let uid = `Note-${(Math.floor(Math.random() * 9999998) + 1000000)}`;
+    let name = `Note Name ${i+1}`;
+    $("#note-list").append(`<option value="${uid}">${uid} : ${name}</option>`)
   }
 
   $("#save-button").on("click", function() {
@@ -185,10 +214,10 @@ function filterResource(data) {
 
 function openDecision() {
     let index = document.getElementById("decisions").value;
-    let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, 
+    let { uid, name, description, priority, impact, status, statusDescription, dateCreated, dateNeeded, note, noteDate,
           dateMade, expectedCompletionDate, actualCompletionDate, updateDate, resource } = db_decisions[index];
 
-    $("#appBody").html(`<form>
+    $("#appBody").replaceWith(`<div id="appBody" class="container"><form>
       <div class="form-group">
         <label for="uid">Unique I.D.</label>
         <input id="uid" class="form-control" type="text" placeholder="${uid}" readonly>
@@ -250,6 +279,21 @@ function openDecision() {
       </div>
       <div class="form-group row">
         <div class="col">
+          <label for="note-list">List of Meeting Notes</label>
+          <select class="form-control" id="note-list"><option></option></select>
+          <button onclick="addNote()" id="add-note-button" type="button" class="btn btn-secondary">Add</button>
+        </div>
+        <div class="col">
+          <label for="note">Meeting Notes</label>
+          <input type="text" class="form-control" id="note" placeholder="" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="note-date">Note Date</label>
+        <input id="note-date" class="form-control" type="text" placeholder= "" readonly>
+      </div>
+      <div class="form-group row">
+        <div class="col">
           <label for="status">Status</label>
           <select class="form-control" id="status"></select>
         </div>
@@ -269,15 +313,17 @@ function openDecision() {
       </div>
       <input class="btn btn-primary" type="submit" value="Save" id="save-button">
       <input class="btn btn-danger" type="button" value="Delete" id="delete-button">        
-    </form>`);
+    </form></div>`);
     loadFormActions(uid, name);
     $("#name").val(name);
     $("#description").val(description);
     $("#priority").val(db_issues_priority[priority]);
     $("#impact").val(db_risks_impact[impact]);
     $("#status").val(`${db_issues_status[status]}`);
-    $("#resources").val(`${db_resources[resource].uid}:${db_resources[resource].name}`)
+    $("#resources").val(`${db_resources[resource].uid}:${db_resources[resource].name}`);
     $("#status-description").val(statusDescription);
+    $("#note").attr("placeholder", note);
+    $("#note-date").attr("placeholder", noteDate.toLocaleDateString());
     if(dateNeeded !== null)
       $("#date-needed").val(formatDate(dateNeeded.getDate(), dateNeeded.getMonth(), dateNeeded.getFullYear()));
     if(dateMade !== null)
