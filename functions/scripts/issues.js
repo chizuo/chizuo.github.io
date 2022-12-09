@@ -1,5 +1,5 @@
 function newIssue() {
-    $("#appBody").html(`
+    $("#appBody").replaceWith(`<div id="appBody" class="container">
         <form>
         <div class="form-group">
             <label for="uid">Unique I.D.</label>
@@ -79,7 +79,7 @@ function newIssue() {
         </div>
         <input class="btn btn-primary" type="submit" value="Save" id="save-button">
         <input class="btn btn-danger" type="reset" value="Clear">
-    </form>`);
+    </form></div>`);
     loadFormActions("","");
 }
 

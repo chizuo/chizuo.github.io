@@ -1,5 +1,5 @@
 function newRisk() {
-    $("#appBody").html(`<form>
+    $("#appBody").replaceWith(`<div id="appBody" class="container"><form>
         <div class="form-group">
             <label for="uid">Unique I.D.</label>
             <input id="uid" class="form-control" type="text" placeholder="R-${(Math.floor(Math.random() * 9999998) + 1000000)}" readonly>
@@ -62,7 +62,7 @@ function newRisk() {
         </div>
         <input class="btn btn-primary" type="submit" value="Save" id="save-button">
         <input class="btn btn-danger" type="reset" value="Clear">
-    </form>`);
+    </form></div>`);
     loadFormActions("","");
 }
 
@@ -156,7 +156,7 @@ function openRisk() {
     let index = document.getElementById("risks").value;
     let { uid, name, category, probability, impact, mitigation, contingency, riskScore, actionBy, actionItems } = db_risks[index];
 
-    $("#appBody").html(`<form>
+    $("#appBody").replaceWith(`<div id="appBody" class="container"><form>
         <div class="form-group">
             <label for="uid">Unique I.D.</label>
             <input id="uid" class="form-control" type="text" placeholder=${uid} readonly>
@@ -219,7 +219,7 @@ function openRisk() {
         </div>
         <input class="btn btn-primary" type="submit" value="Save" id="save-button">
         <input class="btn btn-danger" id="delete-button" type="button" value="Delete">
-    </form>`);
+    </form></div>`);
     loadFormActions(uid, name);
     $("#uid").val(uid);
     $("#name").val(name);

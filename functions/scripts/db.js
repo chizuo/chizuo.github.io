@@ -398,6 +398,8 @@ const db_decisions = [
     expectedCompletionDate: new Date(2022, 10, 22),
     actualCompletionDate: new Date(2022, 10, 22),
     status: 2,
+    note: "Note-192837465",
+    noteDate: new Date(2022, 9, 22),
     statusDescription: "This is the status description as of the last update",
     updateDate: new Date(2022, 9, 14),
   },
@@ -414,6 +416,8 @@ const db_decisions = [
     expectedCompletionDate: new Date(2022, 11, 1),
     actualCompletionDate: null,
     status: 3,
+    note: "Note-987654321",
+    noteDate: new Date(2022, 8, 22),
     statusDescription: "This is the status description as of the last update",
     updateDate: new Date(2022, 10, 30),
   },
@@ -430,10 +434,13 @@ const db_decisions = [
     expectedCompletionDate: new Date(2022, 11, 15),
     actualCompletionDate: null,
     status: 4,
+    note: "Note-123456789",
+    noteDate: new Date(2022, 8, 1),
     statusDescription: "Client is making a requirement change affecting this decision",
     updateDate: new Date(2022, 11, 2),
   },
 ];
+
 const db_decisions_sort = ["","name","created on","needed on","decision made on", "expected on", "completed on", "last updated"];
 const db_decisions_filter = ["", "created on","needed on","decision made on", "expected on", "completed on", "last updated"]
 const db_priority = [
