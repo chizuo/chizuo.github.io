@@ -163,62 +163,86 @@ let db_requirements = [
   },
 ];
 
-let db_tasks = [
+const db_tasks = [
   {
     uid: "T-736789",
     name: "Task 1",
+    milestone: 0,
     description: "This is the first task",
-    resourcewAssigned: [], // array of resource id
+    resource: "RES-736789",
+    resourceID: 0,
     expectedStartDate: new Date(2022, 7, 30),
-    expectedEndDate: new Date(2022, 7, 30),
-    expectedDuration: 10,
-    expectedEffort: 10,
-    actualStartDate: new Date(2022, 7, 30),
-    actualEndDate: new Date(2022, 7, 30),
-    actualDuration: 10,
-    effortCompleted: 10,
-    actualEffort: 10,
-    percentComplete: 10,
-    milestone: new Date(2022, 7, 30),
-    taskParentId: "T-736789",
+    expectedEndDate: new Date(2022, 8, 30),
+    expectedDuration: 31,
+    expectedEffort: 6,
+    actualStartDate: new Date(2022, 7, 31),
+    actualEndDate: new Date(2022, 9, 15),
+    actualDuration: 31,
+    effortCompleted: 20,
+    actualEffort: 12,
+    percentComplete: 100,
+    issue: ["I-736733"],
+    type: "regular",
+    group: 2,
+    subtask: ["T-336733"],
+    predecessor: ["T-936713"],
+    successor: ["T-115721"]
   },
   {
     uid: "T-736733",
     name: "Task 2",
+    milestone: 0,
     description: "This is the second task",
-    resourcewAssigned: [], // array of resource id
-    expectedStartDate: new Date(2022, 7, 30),
-    expectedEndDate: new Date(2022, 7, 30),
+    resource: "RES-736778",
+    resourceID: 3,
+    expectedStartDate: new Date(2022, 9, 10),
+    expectedEndDate: new Date(2022, 11, 11),
     expectedDuration: 10,
-    expectedEffort: 10,
-    actualStartDate: new Date(2022, 7, 30),
-    actualEndDate: new Date(2022, 7, 30),
+    expectedEffort: 12,
+    actualStartDate: new Date(2022, 9, 30),
+    actualEndDate: new Date(2022, 11, 15),
     actualDuration: 10,
-    effortCompleted: 10,
-    actualEffort: 10,
-    percentComplete: 10,
-    milestone: new Date(2022, 7, 30),
-    taskParentId: "T-736733",
+    effortCompleted: 25,
+    actualEffort: 13,
+    percentComplete: 75,
+    issue: ["I-732289"],
+    type:"regular",
+    group: 1,
+    subtask: ["T-136789"],
+    predecessor: ["T-736733"],
+    successor: ["T-396280"]
   },
   {
     uid: "T-732289",
     name: "Task 3",
+    milestone: 0,
     description: "This is the third task",
-    resourcewAssigned: [], // array of resource id
-    expectedStartDate: new Date(2022, 7, 30),
-    expectedEndDate: new Date(2022, 7, 30),
+    resource: "RES-709789", 
+    resourceID: 4,
+    expectedStartDate: new Date(2022, 8, 15),
+    expectedEndDate: new Date(2022, 11, 15),
     expectedDuration: 10,
-    expectedEffort: 10,
-    actualStartDate: new Date(2022, 7, 30),
-    actualEndDate: new Date(2022, 7, 30),
+    expectedEffort: 22,
+    actualStartDate: new Date(2022, 8, 15),
+    actualEndDate: new Date(2022, 11, 1),
     actualDuration: 10,
-    effortCompleted: 10,
-    actualEffort: 10,
-    percentComplete: 10,
-    milestone: new Date(2022, 7, 30),
-    taskParentId: "T-732289",
+    effortCompleted: 33,
+    actualEffort: 22,
+    percentComplete: 88,
+    issue: ["I-736789"],
+    type: "regular",
+    group: 1,
+    subtask: ["T-236713"],
+    predecessor: ["T-736789"],
+    successor: ["T-923451","T-442945"]
   },
 ];
+
+const db_tasks_sort = ["", "name", "expected start", "expected end", "actual start", "actual end"];
+const db_tasks_filter = ["", "expected start", "expected end", "actual start", "actual end"];
+const db_predecessor = [{uid:"T-736789",name:"Task-736789"}, {uid:"T-736733",name:"Task-736733"}, {uid:"T-936713",name:"Task-936713"}];
+const db_successor = [{uid:"T-923451",name:"Task-923451"},{uid:"T-442945",name:"Task-442945"}, {uid:"T-396280",name:"Task-442945"}, {uid:"T-115721",name:"Task-115721"}];
+const db_subtask = [{uid:"T-136789",name:"Task-136789"}, {uid:"T-336733",name:"Task-336733"}, {uid:"T-236713",name:"Task-236713"}];
 
 /******** Risks ********/
 const db_risks = [
@@ -264,7 +288,7 @@ const db_risks_impact = ["","High","Medium","Low"];
 const db_risks_category = ["","Schedule","Budget","Scope"];
 const db_risks_sort = ["","name","Action By"];
 const db_risks_filter = ["","Action By"];
-const db_risks_resource = ["R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
+const db_risks_resource = ["", "R-136789, Sari Ajina","R-144577, Jonathan Chua","R-734257, Mrunal Prakash Gavali","R-835510, Alondra Gonzalez","R-482946, Jeel Prakashkumar Patel","R-270087, Parth Savaj"];
 
 let db_impacts = [
   {
@@ -341,24 +365,6 @@ const db_actionItems = [
     statusDescription:
       "We were able to secure enough for the prototype but not for the entire deliverable",
     updateDate: new Date(2022, 9, 12),
-  },
-];
-
-const db_predecessor_successorTasks = [
-  {
-    uid: "PST-736789",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-  {
-    uid: "PST-736733",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
-  },
-  {
-    uid: "PST-732289",
-    predecessorTaskId: ["T-736789", "T-736733", "T-736733"],
-    successorTaskId: ["T-736789", "T-736733", "T-736733"],
   },
 ];
 
